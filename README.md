@@ -19,6 +19,11 @@ This library exposes
 - jsonpointer.delete
 
 
+## install
+
+`npm i @sagold/json-pointer`
+
+
 ## pointer.get
 
 ```js
