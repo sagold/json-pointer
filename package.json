@@ -1,0 +1,19 @@
+{
+  "name": "@sagold/json-pointer",
+  "version": "1.0.0",
+  "description": "json pointer - failsafe data retrieval on js or json objects",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
+    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0",
+    "publish": "npm publish --access public"
+  },
+  "keywords": [],
+  "author": "Sascha Goldhofer <noreply@saschagoldhofer.de> (https://github.com/sagold/)",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "watch": "^1.0.1"
+  }
+}
