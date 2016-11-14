@@ -21,7 +21,7 @@ This library exposes
 
 ## install
 
-`npm i @sagold/json-pointer`
+`npm i gold-json-pointer`
 
 
 ## pointer.get

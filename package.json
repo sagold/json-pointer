@@ -1,12 +1,11 @@
 {
-  "name": "@sagold/json-pointer",
-  "version": "1.0.1",
+  "name": "gold-json-pointer",
+  "version": "1.0.0",
   "description": "json pointer - failsafe data retrieval on js or json objects",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
-    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0",
-    "publish": "npm publish --access public"
+    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0"
   },
   "keywords": [],
   "author": "Sascha Goldhofer <noreply@saschagoldhofer.de> (https://github.com/sagold/)",
