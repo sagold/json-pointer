@@ -21,7 +21,7 @@ This library exposes
 
 ## install
 
-`npm i gold-json-pointer`
+`npm i gson-pointer`
 
 
 ## pointer.get
@@ -35,7 +35,8 @@ This library exposes
 		}
 	}
 
-	var titleOfChild = pointer.get(data, "#/parent/child/title"); // "title of child"
+	var titleOfChild = pointer.get(data, "#/parent/child/title");
+	// "title of child"
 ```
 
 
@@ -55,7 +56,8 @@ set values on an object
 	};
 
 	pointer.set(data, "#/parent/children/1", {title: "second child"});
-	console.log(data.parent.children.length); // 2
+	console.log(data.parent.children.length);
+	// 2
 ```
 
 
@@ -76,5 +78,6 @@ delete properties or array items
 
 ```js
 	var key = "child";
-	var target = pointer.join("parent", key, "title"); // "#/parent/child/title"
+	var target = pointer.join("parent", key, "title");
+	// "#/parent/child/title"
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "gold-json-pointer",
+  "name": "gson-pointer",
   "version": "1.0.2",
   "description": "json pointer - failsafe data retrieval on js or json objects",
   "main": "lib/index.js",
