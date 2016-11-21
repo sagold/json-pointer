@@ -3,6 +3,10 @@
   "version": "1.0.3",
   "description": "json pointer - failsafe data retrieval on js or json objects",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sagold/json-pointer.git"
+  },
   "scripts": {
     "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
     "tdd": "watch 'npm run test' lib/ app/ test/; exit 0"
