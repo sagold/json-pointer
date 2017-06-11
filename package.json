@@ -1,6 +1,6 @@
 {
   "name": "gson-pointer",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "description": "json pointer - failsafe data retrieval on js and json objects",
   "main": "lib/index.js",
   "repository": {
