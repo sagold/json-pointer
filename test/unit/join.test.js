@@ -12,7 +12,7 @@ describe("pointer.join()", function () {
 
 		var pointer = join();
 
-		expect(pointer).to.eq("#/");
+		expect(pointer).to.eq("#");
 	});
 
 	it("should join multiple pointers", function () {
@@ -34,5 +34,12 @@ describe("pointer.join()", function () {
 		var pointer = join("#", "", "first");
 
 		expect(pointer).to.eq("#/first");
+	});
+
+	it("should resolve relative pointers", function () {
+
+		var pointer = join("#/first/second/third", "../../2");
+
+		expect(pointer).to.eq("#/first/2");
 	});
 });
