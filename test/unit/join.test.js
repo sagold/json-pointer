@@ -42,4 +42,11 @@ describe("pointer.join()", function () {
 
 		expect(pointer).to.eq("#/first/2");
 	});
+
+	it("should return parent pointer", function () {
+
+		var pointer = join("#/first/second/third", "..");
+
+		expect(pointer).to.eq("#/first/second");
+	});
 });
