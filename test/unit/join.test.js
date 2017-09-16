@@ -49,4 +49,18 @@ describe("pointer.join()", function () {
 
 		expect(pointer).to.eq("#/first/second");
 	});
+
+	it("should return root pointer", function () {
+
+		var pointer = join("#/first", "..");
+
+		expect(pointer).to.eq("#");
+	});
+
+	it("should return always return root", function () {
+
+		var pointer = join("#", "..");
+
+		expect(pointer).to.eq("#");
+	});
 });
