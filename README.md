@@ -20,7 +20,7 @@ if (pointer.get({}, "#/path/to/nested/item") !== undefined) {
 
 // instead of
 // if (path && path.to && path.to.nested && path.to.nested.item) {
-// do something
+	// value is set, do something
 ```
 
 
@@ -32,16 +32,16 @@ if (pointer.get({}, "#/path/to/nested/item") !== undefined) {
 ## pointer.get
 
 ```js
-	var data = {
-		parent: {
-			child: {
-				title: "title of child"
-			}
+var data = {
+	parent: {
+		child: {
+			title: "title of child"
 		}
 	}
+}
 
-	var titleOfChild = pointer.get(data, "#/parent/child/title");
-	// "title of child"
+var titleOfChild = pointer.get(data, "#/parent/child/title");
+// "title of child"
 ```
 
 
@@ -50,19 +50,19 @@ if (pointer.get({}, "#/path/to/nested/item") !== undefined) {
 set values on an object
 
 ```js
-	var data = {
-		parent: {
-			children: [
-				{
-					title: "title of child"
-				}
-			]
-		}
-	};
+var data = {
+	parent: {
+		children: [
+			{
+				title: "title of child"
+			}
+		]
+	}
+};
 
-	pointer.set(data, "#/parent/children/1", {title: "second child"});
-	console.log(data.parent.children.length);
-	// 2
+pointer.set(data, "#/parent/children/1", {title: "second child"});
+console.log(data.parent.children.length);
+// 2
 ```
 
 
@@ -71,7 +71,7 @@ set values on an object
 delete properties or array items
 
 ```js
-	pointer.delete(data, "#/parent/arrayOrObject/1");
+pointer.delete(data, "#/parent/arrayOrObject/1");
 ```
 
 
@@ -82,7 +82,7 @@ delete properties or array items
 `pointer.join` joins all arguments to a valid json pointer:
 
 ```js
-	var key = "child";
-	var target = pointer.join("parent", key, "title");
-	// "#/parent/child/title"
+var key = "child";
+var target = pointer.join("parent", key, "title");
+// "#/parent/child/title"
 ```
