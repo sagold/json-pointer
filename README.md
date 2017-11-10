@@ -1,27 +1,32 @@
 # Json Pointer
 
-Here is a [solid json-pointer implementation](https://github.com/manuelstofer/json-pointer).
-The main differences to this implementation are
+This json-pointer implementation conforms to [RFC 6901](https://tools.ietf.org/html/rfc6901), currently with one
+exception:
 
-- conforms to [RFC 6901](https://tools.ietf.org/html/rfc6901)
-- throws an error when a value is not found / the pointer is invalid
-- additional utilities
+> The _URI Fragment Identifier Representation_ **#**, e.g. '#/path/to/value' is treated as syntactic sugar, mainly for
+> readability purposes, to clarify that the given string is a json-pointer used with gson-pointer. The identifier will
+> be stripped when resolving values of the data and will **not** escape values through _percent-encoding_.
 
-This json-pointer implementation will return `undefined` if the pointer could not be resolved, which allows checks like
-`if (pointer.get(data, "#/path/to/nested/item") {...}`
-instead of
-`if (path && path.to && path.to.nested ...`.
+The _URI Fragment Identifier Representation_ may be omitted, e.g. using `#/path/to/value` is equal to `/path/to/value`.
+But you should be aware that using methods like `join('/path/to', 'value')` will return the pointer as `#/path/to/value`
 
-This library exposes
+As the _error handling_ is not further specified in [RFC 6901](https://tools.ietf.org/html/rfc6901), this implementation
+will return `undefined` for any invalid pointer/missing data, making it very handy to check uncertain data, i.e.
 
-- jsonpointer.get
-- jsonpointer.set and
-- jsonpointer.delete
+```js
+if (pointer.get({}, "#/path/to/nested/item") !== undefined) {
+	// value is set, do something
+}
+
+// instead of
+// if (path && path.to && path.to.nested && path.to.nested.item) {
+// do something
+```
 
 
 ## install
 
-`npm i gson-pointer`
+`npm i gson-pointer --save`
 
 
 ## pointer.get
