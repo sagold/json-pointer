@@ -11,6 +11,9 @@
     "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
     "tdd": "watch 'npm run test' lib/ app/ test/; exit 0"
   },
+  "pre-push": [
+      "test"
+  ],
   "keywords": ["json-pointer", "json", "data", "javascript", "make my day"],
   "author": "Sascha Goldhofer <noreply@saschagoldhofer.de> (https://github.com/sagold/)",
   "license": "ISC",
