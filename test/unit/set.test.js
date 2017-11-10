@@ -65,4 +65,19 @@ describe("pointer.set", function () {
 		expect(result.array[1]).to.be.an.object;
 		expect(result.array[1].valid).to.be.true;
 	});
+
+	describe("rfc6901", () => {
+
+		it("should interpret '~1' as '/' in property", function () {
+			var result = pointer.set({}, "#/my~1value", true);
+
+			expect(result["my/value"]).to.eq(true);
+		});
+
+		it("should interpret '~0' as '~' in property", function () {
+			var result = pointer.set({}, "#/my~0value", true);
+
+			expect(result["my~value"]).to.eq(true);
+		});
+	});
 });

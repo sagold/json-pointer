@@ -47,4 +47,19 @@ describe("pointer.delete", function () {
 			expect(result.array).to.have.length(2);
 		});
 	});
+
+	describe("rfc6901", () => {
+
+		it("should interpret '~1' as '/' in property", function () {
+			var result = pointer.delete({ "my/value": true }, "#/my~1value");
+
+			expect(result["my/value"]).to.eq(undefined);
+		});
+
+		it("should interpret '~0' as '~' in property", function () {
+			var result = pointer.delete({ "my~value": true }, "#/my~0value");
+
+			expect(result["my~value"]).to.eq(undefined);
+		});
+	});
 });
