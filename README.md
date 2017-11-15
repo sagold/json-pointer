@@ -7,12 +7,12 @@ pointer/missing data, making it very handy to check uncertain data, i.e.
 ```js
 const data = {};
 if (pointer.get(data, "/path/to/nested/item") !== undefined) {
-  // value is set, do something
+    // value is set, do something
 }
 
 // instead of
 if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item) {
-  // value is set, do something
+    // value is set, do something
 }
 ```
 
@@ -21,13 +21,13 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 
 Besides the standard `get` function, this library offers additional functions to work with json-pointer
 
-| method								| description
+| method                                | description
 | ------------------------------------- | -------------------------------------------------------------
-| get (data, pointer) -> [mixed]  		| returns the value at given pointer
-| set (data, pointer, value) -> data  	| sets the value at the given path
-| delete (data, pointer) -> data  		| removes a property from data
-| join (pointer*) -> pointer  			| joins multiple pointers to a single one
-| split (pointer) -> [array]  			| returns a json-pointer as an array
+| get (data, pointer) -> [mixed]        | returns the value at given pointer
+| set (data, pointer, value) -> data    | sets the value at the given path
+| delete (data, pointer) -> data        | removes a property from data
+| join (pointer*) -> pointer            | joins multiple pointers to a single one
+| split (pointer) -> [array]            | returns a json-pointer as an array
 
 
 ## Examples
@@ -38,11 +38,11 @@ Besides the standard `get` function, this library offers additional functions to
 const gp = require("gson-pointer");
 
 const data = {
-  parent: {
-  	child: {
-	  title: "title of child"
-	}
-  }
+    parent: {
+        child: {
+            title: "title of child"
+        }
+    }
 }
 
 const titleOfChild = gp.get(data, "/parent/child/title"); // output: "title of child"
@@ -58,13 +58,13 @@ set values on an object
 const gp = require("gson-pointer");
 
 var data = {
-  parent: {
-	children: [
-	  {
-		title: "title of child"
-	  }
-	]
-  }
+    parent: {
+        children: [
+            {
+                title: "title of child"
+            }
+        ]
+    }
 };
 
 pointer.set(data, "#/parent/children/1", {title: "second child"});
