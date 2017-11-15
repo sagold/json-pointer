@@ -39,7 +39,7 @@ Besides the standard `get` function, this library offers additional functions to
 
 ## Usage Examples
 
-### pointer.get(data, pointer):value
+### pointer.get(data, pointer):Any
 
 returns nested values
 
@@ -65,7 +65,7 @@ console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
 ```
 
 
-### pointer.set(data, pointer, value)
+### pointer.set(data, pointer, value):data
 
 changes a nested value
 
@@ -103,7 +103,7 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
 
-### pointer.delete(data, pointer)
+### pointer.delete(data, pointer):data
 
 deletes a nested property or item
 
@@ -122,7 +122,7 @@ console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
 
-### pointer.split(pointer)
+### pointer.split(pointer):Array
 
 returns a json-pointer as a list of (escaped) properties
 
@@ -142,7 +142,7 @@ console.log(gp.get(data, list)); // output: true
 ```
 
 
-### pointer.join(pointer, pointer, ...)
+### pointer.join(pointer, pointer, ...):String
 
 joins all arguments to a valid json pointer
 
