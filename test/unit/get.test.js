@@ -47,6 +47,7 @@ describe("pointer.get", () => {
         expect(result).to.eq("propertyValue");
     });
 
+
     describe("rfc 6901", () => {
 
         let data;
@@ -136,9 +137,9 @@ describe("pointer.get", () => {
         });
     });
 
-    // issue #1
 
     describe("issue #1", () => {
+
         it("should correctly escape ~0~1", () => {
             const result = get({
                 "~0~1": false,

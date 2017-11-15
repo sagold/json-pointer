@@ -22,6 +22,18 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("/parent/child/target");
     });
 
+    it("should ignore empty values", () => {
+        const pointer = join("parent", null, "target");
+
+        expect(pointer).to.eq("/parent/target");
+    });
+
+    it("should ignore non-strings values", () => {
+        const pointer = join("parent", {}, false, "target");
+
+        expect(pointer).to.eq("/parent/target");
+    });
+
     it("should not have multiple slashes", () => {
         const pointer = join("/", "", "first");
 
@@ -79,10 +91,16 @@ describe("pointer.join", () => {
             expect(pointer).to.eq("#/first/second");
         });
 
-        it("should ignore fragment uri if encounter within path", () => {
+        it("should ignore fragment uri if encountered within path", () => {
             const pointer = join("/first/second", "#/third", "..");
 
             expect(pointer).to.eq("/first/second");
+        });
+
+        it("should percent decode contained uri fragment pointer", () => {
+            const pointer = join("/pointer", "#/my%20value");
+
+            expect(pointer).to.eq("/pointer/my value");
         });
     });
 
