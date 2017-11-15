@@ -34,7 +34,7 @@ Besides the standard `get` function, this library offers additional functions to
 
 
 > The methods `get`, `set`, `delete` and `join` also accept a list of properties as pointer. Using join with a list
-> of properties, its signature changes to `join(properties:Array, isURI:Boolean):String`
+> of properties, its signature changes to `join(properties:string[], isURI=false) -> string`
 
 
 ## Usage Examples
