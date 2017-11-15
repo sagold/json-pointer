@@ -28,7 +28,7 @@ Besides the standard `get` function, this library offers additional functions to
 | get(data, pointer) -> value           | returns the value at given pointer
 | set(data, pointer, value) -> data     | sets the value at the given path
 | delete(data, pointer) -> data         | removes a property from data
-| join(pointer*) -> pointer             | joins multiple pointers to a single one
+| join(...pointers) -> pointer          | joins multiple pointers to a single one
 | join([properties], isURI) -> pointer  | joins all properties in the given mode
 | split(pointer) -> [array]             | returns a json-pointer as an array
 
@@ -39,7 +39,9 @@ Besides the standard `get` function, this library offers additional functions to
 
 ## Usage Examples
 
-### pointer.get(data, pointer):Any
+### pointer.get
+
+> get(data:object|array, pointer:string) -> value:any
 
 returns nested values
 
@@ -65,7 +67,9 @@ console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
 ```
 
 
-### pointer.set(data, pointer, value):data
+### pointer.set
+
+> set(data:object|array, pointer:string, value:any) -> data:object|array
 
 changes a nested value
 
@@ -103,7 +107,9 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
 
-### pointer.delete(data, pointer):data
+### pointer.delete
+
+> delete(data:object|array, pointer:string) -> data:object|array
 
 deletes a nested property or item
 
@@ -122,7 +128,9 @@ console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
 
-### pointer.split(pointer):Array
+### pointer.split
+
+> split(pointer:string) -> properties:array
 
 returns a json-pointer as a list of (escaped) properties
 
@@ -142,7 +150,9 @@ console.log(gp.get(data, list)); // output: true
 ```
 
 
-### pointer.join(pointer, pointer, ...):String
+### pointer.join
+
+> join(...pointers:string[]) -> pointer:string
 
 joins all arguments to a valid json pointer
 
