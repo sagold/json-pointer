@@ -19,6 +19,13 @@ describe("pointer.split", () => {
         expect(result.length).to.eq(0);
     });
 
+    it("should return input array", () => {
+        const result = split(["a", "b"]);
+
+        expect(result).to.be.an("array");
+        expect(result).to.deep.eq(["a", "b"]);
+    });
+
     it("should return path properties in array", () => {
         const result = split("/my/path");
 

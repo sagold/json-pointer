@@ -76,6 +76,12 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("");
     });
 
+    it("should accept a list of properties", () => {
+        const pointer = join(["first", "second", "third"]);
+
+        expect(pointer).to.eq("/first/second/third");
+    });
+
 
     describe("# (uri fragment)", () => {
 

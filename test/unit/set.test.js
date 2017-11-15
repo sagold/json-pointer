@@ -82,6 +82,14 @@ describe("pointer.set", () => {
         expect(result.array[1].valid).to.be.true;
     });
 
+    it("should accept a list of properties as pointer", () => {
+        const result = set({}, ["array", "[1]", "valid"], true);
+
+        expect(result.array.length).to.eq(2);
+        expect(result.array[1]).to.be.an.object;
+        expect(result.array[1].valid).to.be.true;
+    });
+
     describe("# (uri fragment)", () => {
 
         it("should add value on the given path", () => {

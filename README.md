@@ -49,6 +49,13 @@ const titleOfChild = gp.get(data, "/parent/child/title"); // output: "title of c
 console.log(gp.get(data, "/parent/missing/path")); // output: undefined
 ```
 
+`get` also accepts a list of properties as pointer
+
+```js
+const titleOfChild = gp.get(data, ["parent", "child", "title"]); // output: "title of child"
+console.log(gp.get(data, ["parent", "missing", "path"])); // output: undefined
+```
+
 
 ### pointer.set(data, pointer, value)
 
@@ -67,7 +74,7 @@ var data = {
     }
 };
 
-pointer.set(data, "#/parent/children/1", {title: "second child"});
+pointer.set(data, "/parent/children/1", { title: "second child" });
 console.log(data.parent.children.length); // output: 2
 ```
 
@@ -79,6 +86,14 @@ const data = gp.set({}, "/list/[]/value", 42);
 console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
+`set` also accepts a list of properties as pointer
+
+```js
+const gp = require("gson-pointer");
+const data = gp.set({}, ["list", "[]", "value"], 42);
+console.log(data); // output: { list: [ { value: 42 } ] }
+```
+
 
 ### pointer.delete(data, pointer)
 
@@ -86,7 +101,15 @@ delete properties or array items
 
 ```js
 const gp = require("gson-pointer");
-const data = gp.delete({ parent: { arrayOrObject: [ 0, 1 ] }}, "#/parent/arrayOrObject/1");
+const data = gp.delete({ parent: { arrayOrObject: [ 0, 1 ] }}, "/parent/arrayOrObject/1");
+console.log(data.parent.arrayOrObject); // output: [0]
+```
+
+`delete` also accepts a list of properties as pointer
+
+```js
+const gp = require("gson-pointer");
+const data = gp.delete({ parent: { arrayOrObject: [ 0, 1 ] }}, ["parent", "arrayOrObject", "1"]);
 console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
@@ -101,13 +124,13 @@ const list = gp.split("#/parent/arrayOrObject/1");
 console.log(list); // output: ["parent", "arrayOrObject", "1"]
 ```
 
-In order to resolve a list of properties, you can use `get.run(data, properties)` to directly pass the list
+In order to resolve a list of properties, you can use `get(data, properties)` to directly pass the list
 
 ```js
 const gp = require("gson-pointer");
 const data = { a: { b: true } };
 const list = gp.split("#/a/b");
-console.log(gp.get.run(data, list)); // output: true
+console.log(gp.get(data, list)); // output: true
 ```
 
 
@@ -128,13 +151,13 @@ const gp = require("gson-pointer");
 console.log(gp.join("/path/to/value", "../object")); // output: "/path/to/object"
 ```
 
-in order to join an array received from split, you can use `join.list()` to retrieve a valid pointer
+in order to join an array received from split, you can use `join(properties, isURI)` to retrieve a valid pointer
 
 ```js
 const gp = require("gson-pointer");
 const list = gp.split("/my/path/to/child");
 list.pop();
-console.log(gp.join.list(list)); // output: "/my/path/to"
+console.log(gp.join(list)); // output: "/my/path/to"
 ```
 
 
@@ -155,6 +178,6 @@ const pointer = gp.join("#/my value/to%20parent", "../to~1child");
 console.log(pointer); // output: "#/my%20value/to~1child"
 
 // join an array of properties
-const uriPointer = gp.join.list(["my value", "to~1child"], isURI = true);
+const uriPointer = gp.join(["my value", "to~1child"], isURI = true);
 console.log(uriPointer); // output: "#/my%20value/to~1child"
 ```

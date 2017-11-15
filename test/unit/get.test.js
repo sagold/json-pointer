@@ -47,6 +47,12 @@ describe("pointer.get", () => {
         expect(result).to.eq("propertyValue");
     });
 
+    it("should also accept a list of properties as pointer", () => {
+        const result = get({ property: { value: "propertyValue" } }, ["property", "value"]);
+
+        expect(result).to.be.eq("propertyValue");
+    });
+
 
     describe("rfc 6901", () => {
 

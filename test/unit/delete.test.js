@@ -31,6 +31,13 @@ describe("pointer.delete", () => {
         expect(result.a.c).to.be.instanceOf(Object);
     });
 
+    it("should accept list of properties as pointer", () => {
+        const result = pointer.delete({ a: { b: {}, c: {} } }, ["a", "b"]);
+
+        expect(result.a.b).to.be.undefined;
+        expect(result.a.c).to.be.instanceOf(Object);
+    });
+
     it("should ignore invalid paths", () => {
         const result = pointer.delete({ a: { b: {}, c: {} } }, "/a/d/c");
 
