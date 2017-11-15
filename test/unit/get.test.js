@@ -123,17 +123,82 @@ describe("pointer.get", () => {
             const result = get(data, "/m~0n");
             expect(result).to.eq(8);
         });
+    });
 
-        it("should return nested properties", () => {
-            const result = get({ property: { value: "propertyValue" } }, "#/property/value");
 
-            expect(result).to.eq("propertyValue");
+    describe("rfc 6901 - uri fragment", () => {
+        let data;
+        beforeEach(() => (data = {
+            foo: ["bar", "baz"],
+            "": 0,
+            "a/b": 1,
+            "c%d": 2,
+            "e^f": 3,
+            "g|h": 4,
+            "i\\j": 5,
+            "k\"l": 6,
+            " ": 7,
+            "m~n": 8
+        }));
+
+        it("should return the root document for '#'", () => {
+            const result = get(data, "#");
+            expect(result).to.eq(data);
         });
 
-        it("should escape url encoded values", () => {
-            const result = get({ property: { "my value": "propertyValue" } }, "#/property/my%20value");
+        it("should return property", () => {
+            const result = get(data, "#/foo");
+            expect(result).to.deep.eq(["bar", "baz"]);
+        });
 
-            expect(result).to.eq("propertyValue");
+        it("should return nested array item", () => {
+            const result = get(data, "#/foo/0");
+            expect(result).to.eq("bar");
+        });
+
+        it("should return empty property", () => {
+            const result = get(data, "#/");
+            expect(result).to.eq(0);
+        });
+
+        it("should return property containing '/'", () => {
+            const result = get(data, "#/a~1b");
+            expect(result).to.eq(1);
+        });
+
+        it("should return property containing '%'", () => {
+            const result = get(data, "#/c%25d");
+            expect(result).to.eq(2);
+        });
+
+        it("should return property containing '^'", () => {
+            const result = get(data, "#/e%5Ef");
+            expect(result).to.eq(3);
+        });
+
+        it("should return property containing '|'", () => {
+            const result = get(data, "#/g%7Ch");
+            expect(result).to.eq(4);
+        });
+
+        it("should return property containing '|'", () => {
+            const result = get(data, "#/i%5Cj");
+            expect(result).to.eq(5);
+        });
+
+        it("should return property containing '\"'", () => {
+            const result = get(data, "#/k%22l");
+            expect(result).to.eq(6);
+        });
+
+        it("should return property containing ' '", () => {
+            const result = get(data, "#/%20");
+            expect(result).to.eq(7);
+        });
+
+        it("should return property containing '~", () => {
+            const result = get(data, "#/m~0n");
+            expect(result).to.eq(8);
         });
     });
 
