@@ -101,6 +101,15 @@ const list = gp.split("#/parent/arrayOrObject/1");
 console.log(list); // output: ["parent", "arrayOrObject", "1"]
 ```
 
+In order to resolve a list of properties, you can use `get.run(data, properties)` to directly pass the list
+
+```js
+const gp = require("gson-pointer");
+const data = { a: { b: true } };
+const list = gp.split("#/a/b");
+console.log(gp.get.run(data, list)); // output: true
+```
+
 
 ### pointer.join(pointer, pointer, ...)
 
