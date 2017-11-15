@@ -137,14 +137,16 @@ when resolving the path within data and also ensure that any pointer is returned
 ```js
 const gp = require("gson-pointer");
 
-// join
-const list = gp.split("#/my value/to/child");
-list.pop();
-console.log(gp.join.list(list)); // output: "/my%20value/to"
-
 // get
 const value = gp.get({ "my value": true }, "#/my%20value");
 console.log(value); // output: true
+
+// join
+const pointer = gp.join("#/my value/to%20parent", "../to~1child");
+console.log(pointer); // output: "#/my%20value/to~1child"
+
+// join an array of properties
+const isURI = true;
+const uriPointer = gp.join.list(["my value", "to~1child"], isURI);
+console.log(uriPointer); // output: "#/my%20value/to~1child"
 ```
-
-
