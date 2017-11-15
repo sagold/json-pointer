@@ -168,6 +168,17 @@ list.pop();
 console.log(gp.join(list)); // output: '/my/path/to'
 ```
 
+To join an array of pointer, you must use following or all pointers will be treated as properties
+
+```js
+const gp = require('gson-pointer');
+const pointer = gp.join(...['/path/to/value', '../object']);
+console.log(pointer); // output: '/path/to/object'
+
+// passing the array directly, will treat each entry as property, which would result in
+gp.join(['/path/to/value', '../object']); // output: '/~1path/to/value/..~1object'
+```
+
 
 ## Fragment identifier
 
