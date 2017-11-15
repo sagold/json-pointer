@@ -155,7 +155,6 @@ const pointer = gp.join("#/my value/to%20parent", "../to~1child");
 console.log(pointer); // output: "#/my%20value/to~1child"
 
 // join an array of properties
-const isURI = true;
-const uriPointer = gp.join.list(["my value", "to~1child"], isURI);
+const uriPointer = gp.join.list(["my value", "to~1child"], isURI = true);
 console.log(uriPointer); // output: "#/my%20value/to~1child"
 ```
