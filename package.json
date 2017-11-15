@@ -2,24 +2,32 @@
   "name": "gson-pointer",
   "version": "2.2.0",
   "description": "json pointer - failsafe data retrieval on js and json objects",
-  "main": "lib/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sagold/json-pointer.git"
   },
+  "pre-push": [
+    "test"
+  ],
   "scripts": {
     "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
     "tdd": "watch 'npm run test' lib/ app/ test/; exit 0"
   },
-  "pre-push": [
-      "test"
+  "keywords": [
+    "json-pointer",
+    "json",
+    "data",
+    "javascript",
+    "make my day"
   ],
-  "keywords": ["json-pointer", "json", "data", "javascript", "make my day"],
   "author": "Sascha Goldhofer <noreply@saschagoldhofer.de> (https://github.com/sagold/)",
   "license": "ISC",
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.19.0",
     "mocha": "^3.1.2",
+    "pre-push": "^0.1.1",
     "watch": "^1.0.1"
   }
 }

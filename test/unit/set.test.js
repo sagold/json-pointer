@@ -1,83 +1,98 @@
-"use strict";
+/* eslint no-unused-expressions: 0 */
+const expect = require("chai").expect;
+const set = require("../../lib/set");
 
 
-var expect = require("chai").expect;
-var pointer = require("../../lib");
+describe("pointer.set", () => {
 
+    it("should add value to the given property", () => {
+        const result = set({}, "/property", true);
 
-describe("pointer.set", function () {
+        expect(result).to.have.property("property");
+        expect(result.property).to.be.true;
+    });
 
-	it("should add value to the given property", function () {
-		var result = pointer.set({}, "#/property", true);
+    it("should add value on the given path", () => {
+        const result = set({}, "/path/to/property", true);
 
-		expect(result).to.have.property("property");
-		expect(result.property).to.be.true;
-	});
+        expect(result.path.to.property).to.be.true;
+    });
 
-	it("should add value on the given path", function () {
-		var result = pointer.set({}, "#/path/to/property", true);
+    it("should not remove any other properties", () => {
+        const result = set({
+            path: { to: { id: "parent" } }
+        }, "/path/to/property", true);
 
-		expect(result.path.to.property).to.be.true
-	});
+        expect(result.path.to.property).to.be.true;
+        expect(result.path.to.id).to.eq("parent");
+    });
 
-	it("should not remove any other properties", function () {
-		var result = pointer.set({
-			"path": { "to": { "id": "parent"} }
-		}, "#/path/to/property", true);
+    it("should insert array for []", () => {
+        const result = set({}, "/array/[]", true);
 
-		expect(result.path.to.property).to.be.true
-		expect(result.path.to.id).to.eq("parent");
-	});
+        expect(result.array).to.be.an.array;
+        expect(result.array.length).to.eq(1);
+    });
 
-	it("should insert array for []", function () {
-		var result = pointer.set({}, "#/array/[]", true);
+    it("should insert index in array", () => {
+        const result = set({}, "/array/[1]", true);
 
-		expect(result.array).to.be.an.array;
-		expect(result.array.length).to.eq(1);
-	});
+        expect(result.array).to.be.an.array;
+        expect(result.array.length).to.eq(2);
+        expect(result.array[1]).to.be.true;
+    });
 
-	it("should insert index in array", function () {
-		var result = pointer.set({}, "#/array/[1]", true);
+    it("should insert array in array", () => {
+        const result = set({}, "/array/[]/[]", true);
 
-		expect(result.array).to.be.an.array;
-		expect(result.array.length).to.eq(2);
-		expect(result.array[1]).to.be.true;
-	});
+        expect(result.array[0]).to.be.an.array;
+        expect(result.array[0][0]).to.be.true;
+    });
 
-	it("should insert array in array", function () {
-		var result = pointer.set({}, "#/array/[]/[]", true);
+    it("should insert array to index in array", () => {
+        const result = set({}, "/array/[1]/[]", true);
 
-		expect(result.array[0]).to.be.an.array;
-		expect(result.array[0][0]).to.be.true;
-	});
+        expect(result.array[1]).to.be.an.array;
+        expect(result.array[1][0]).to.be.true;
+    });
 
-	it("should insert array to index in array", function () {
-		var result = pointer.set({}, "#/array/[1]/[]", true);
+    it("should insert object in array", () => {
+        const result = set({}, "/array/[1]/valid", true);
 
-		expect(result.array[1]).to.be.an.array;
-		expect(result.array[1][0]).to.be.true;
-	});
+        expect(result.array.length).to.eq(2);
+        expect(result.array[1]).to.be.an.object;
+        expect(result.array[1].valid).to.be.true;
+    });
 
-	it("should insert object in array", function () {
-		var result = pointer.set({}, "#/array/[1]/valid", true);
+    describe("# (uri fragment)", () => {
 
-		expect(result.array.length).to.eq(2);
-		expect(result.array[1]).to.be.an.object;
-		expect(result.array[1].valid).to.be.true;
-	});
+        it("should add value on the given path", () => {
+            const result = set({}, "#/path/to/property", true);
 
-	describe("rfc6901", () => {
+            expect(result.path.to.property).to.be.true;
+        });
 
-		it("should interpret '~1' as '/' in property", function () {
-			var result = pointer.set({}, "#/my~1value", true);
+        it("should insert object in array", () => {
+            const result = set({}, "#/array/[1]/valid", true);
 
-			expect(result["my/value"]).to.eq(true);
-		});
+            expect(result.array.length).to.eq(2);
+            expect(result.array[1]).to.be.an.object;
+            expect(result.array[1].valid).to.be.true;
+        });
+    });
 
-		it("should interpret '~0' as '~' in property", function () {
-			var result = pointer.set({}, "#/my~0value", true);
+    describe("rfc6901", () => {
 
-			expect(result["my~value"]).to.eq(true);
-		});
-	});
+        it("should interpret '~1' as '/' in property", () => {
+            const result = set({}, "/my~1value", true);
+
+            expect(result["my/value"]).to.eq(true);
+        });
+
+        it("should interpret '~0' as '~' in property", () => {
+            const result = set({}, "/my~0value", true);
+
+            expect(result["my~value"]).to.eq(true);
+        });
+    });
 });
