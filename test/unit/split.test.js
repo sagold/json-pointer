@@ -3,7 +3,7 @@ const expect = require("chai").expect;
 const split = require("../../lib/split");
 
 
-describe("pointer.toArray", () => {
+describe("pointer.split", () => {
 
     it("should return empty array for missing pointer", () => {
         const result = split();

@@ -63,7 +63,7 @@ describe("pointer.delete", () => {
         });
     });
 
-    describe("rfc6901", () => {
+    describe("escapes", () => {
 
         it("should interpret '~1' as '/' in property", () => {
             const result = pointer.delete({ "my/value": true }, "/my~1value");

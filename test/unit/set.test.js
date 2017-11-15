@@ -99,7 +99,7 @@ describe("pointer.set", () => {
         });
     });
 
-    describe("rfc6901", () => {
+    describe("escapes", () => {
 
         it("should interpret '~1' as '/' in property", () => {
             const result = set({}, "/my~1value", true);

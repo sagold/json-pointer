@@ -2,7 +2,7 @@ const expect = require("chai").expect;
 const join = require("../../lib/join");
 
 
-describe("pointer.join()", () => {
+describe("pointer.join", () => {
 
     it("should return an empty string (root pointer)", () => {
         const pointer = join();
@@ -87,7 +87,7 @@ describe("pointer.join()", () => {
     });
 
 
-    describe("rfc 6901", () => {
+    describe("escapes", () => {
 
         it("should escape / with ~1", () => {
             const pointer = join("value~11", "value2");

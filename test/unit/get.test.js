@@ -3,7 +3,7 @@ const expect = require("chai").expect;
 const get = require("../../lib/get");
 
 
-describe("get", () => {
+describe("pointer.get", () => {
 
     it("should return undefined if property does not exist", () => {
         const result = get({ property: "propertyValue" }, "/value");
@@ -46,23 +46,6 @@ describe("get", () => {
 
         expect(result).to.eq("propertyValue");
     });
-
-
-    describe("# (uri fragment)", () => {
-
-        it("should return nested properties", () => {
-            const result = get({ property: { value: "propertyValue" } }, "#/property/value");
-
-            expect(result).to.eq("propertyValue");
-        });
-
-        it("should escape url encoded values", () => {
-            const result = get({ property: { "my value": "propertyValue" } }, "#/property/my%20value");
-
-            expect(result).to.eq("propertyValue");
-        });
-    });
-
 
     describe("rfc 6901", () => {
 
@@ -138,6 +121,18 @@ describe("get", () => {
         it("should escape '~0' as '~'", () => {
             const result = get(data, "/m~0n");
             expect(result).to.eq(8);
+        });
+
+        it("should return nested properties", () => {
+            const result = get({ property: { value: "propertyValue" } }, "#/property/value");
+
+            expect(result).to.eq("propertyValue");
+        });
+
+        it("should escape url encoded values", () => {
+            const result = get({ property: { "my value": "propertyValue" } }, "#/property/my%20value");
+
+            expect(result).to.eq("propertyValue");
         });
     });
 
