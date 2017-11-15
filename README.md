@@ -30,7 +30,7 @@ Besides the standard `get` function, this library offers additional functions to
 | split (pointer) -> [array]            | returns a json-pointer as an array
 
 
-## Examples
+## Usage
 
 ### pointer.get(data, pointer)
 
