@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
-    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0"
+    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0",
+    "coverage": "nyc npm run test --reporter=lcov"
   },
   "keywords": [
     "json-pointer",
@@ -27,6 +28,7 @@
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
     "mocha": "^3.1.2",
+    "nyc": "^11.3.0",
     "pre-push": "^0.1.1",
     "watch": "^1.0.1"
   }

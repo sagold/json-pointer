@@ -5,6 +5,24 @@ const set = require("../../lib/set");
 
 describe("pointer.set", () => {
 
+    it("should return data fo an invalid pointer", () => {
+        const data = {};
+        const result = set(data);
+
+        expect(result).to.eq(data);
+    });
+
+    it("should create a new object for missing data and object pointer", () => {
+        const result = set(null, "/property", true);
+
+        expect(result.property).to.be.true;
+    });
+
+    it("should create a new array for missing data and array property", () => {
+        const result = set(null, "/[]", true);
+        expect(result[0]).to.be.true;
+    });
+
     it("should add value to the given property", () => {
         const result = set({}, "/property", true);
 

@@ -31,6 +31,11 @@ describe("pointer.delete", () => {
         expect(result.a.c).to.be.instanceOf(Object);
     });
 
+    it("should ignore invalid paths", () => {
+        const result = pointer.delete({ a: { b: {}, c: {} } }, "/a/d/c");
+
+        expect(result).to.deep.eq({ a: { b: {}, c: {} } });
+    });
 
     describe("array", () => {
 
