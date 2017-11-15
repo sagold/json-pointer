@@ -41,7 +41,7 @@ Besides the standard `get` function, this library offers additional functions to
 
 ### pointer.get
 
-> get(data:object|array, pointer:string|array) -> value:any
+> get(data:object|array, pointer:string|array, defaultValue:any) -> value:any
 
 returns nested values
 
@@ -59,13 +59,20 @@ const titleOfChild = gp.get(data, '/parent/child/title'); // output: 'title of c
 console.log(gp.get(data, '/parent/missing/path')); // output: undefined
 ```
 
+and may optionally pass a default value with
+
+```js
+const gp = require('gson-pointer');
+const value = gp.get({}, "/invalid/value", 42);
+console.log(value); // output: 42
+```
+
 `get` also accepts a list of properties as pointer (e.g. split-result)
 
 ```js
 const titleOfChild = gp.get(data, ['parent', 'child', 'title']); // output: 'title of child'
 console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
 ```
-
 
 ### pointer.set
 

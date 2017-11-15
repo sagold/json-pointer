@@ -7,52 +7,48 @@ describe("pointer.get", () => {
 
     it("should return undefined if property does not exist", () => {
         const result = get({ property: "propertyValue" }, "/value");
-
         expect(result).to.be.undefined;
     });
 
     it("should return undefined if pointer is empty", () => {
         const result = get({ property: "propertyValue" }, null);
-
         expect(result).to.be.undefined;
     });
 
     it("should return value if falsy", () => {
         const result = get({ property: 0 }, "/property");
-
         expect(result).to.be.eq(0);
     });
 
     it("should not url decode %20", () => {
         const result = get({ "%20": 0 }, "/%20");
-
         expect(result).to.be.eq(0);
     });
 
     it("should return nested properties", () => {
         const result = get({ property: { value: "propertyValue" } }, "/property/value");
-
         expect(result).to.eq("propertyValue");
     });
 
     it("should return 'undefined' if nested property does not exist", () => {
         const result = get({ property: { value: "propertyValue" } }, "/property/missing/value");
-
         expect(result).to.be.undefined;
     });
 
     it("should resolve arrays", () => {
         const result = get(["0", { value: "propertyValue" }], "/1/value");
-
         expect(result).to.eq("propertyValue");
     });
 
     it("should also accept a list of properties as pointer", () => {
         const result = get({ property: { value: "propertyValue" } }, ["property", "value"]);
-
         expect(result).to.be.eq("propertyValue");
     });
 
+    it("should return 'defaultValue' if property does not exist", () => {
+        const result = get({ property: { value: "propertyValue" } }, "/property/missing", 42);
+        expect(result).to.eq(42);
+    });
 
     describe("rfc 6901", () => {
 
