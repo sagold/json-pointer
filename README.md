@@ -5,12 +5,13 @@ As the _error handling_ is not further specified, this implementation will retur
 pointer/missing data, making it very handy to check uncertain data, i.e.
 
 ```js
-if (pointer.get({}, "/path/to/nested/item") !== undefined) {
+const data = {};
+if (pointer.get(data, "/path/to/nested/item") !== undefined) {
   // value is set, do something
 }
 
 // instead of
-if (path && path.to && path.to.nested && path.to.nested.item) {
+if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item) {
   // value is set, do something
 }
 ```
@@ -37,11 +38,11 @@ Besides the standard `get` function, this library offers additional functions to
 const gp = require("gson-pointer");
 
 const data = {
-	parent: {
-		child: {
-			title: "title of child"
-		}
+  parent: {
+  	child: {
+	  title: "title of child"
 	}
+  }
 }
 
 const titleOfChild = gp.get(data, "/parent/child/title"); // output: "title of child"
@@ -57,13 +58,13 @@ set values on an object
 const gp = require("gson-pointer");
 
 var data = {
-	parent: {
-		children: [
-			{
-				title: "title of child"
-			}
-		]
-	}
+  parent: {
+	children: [
+	  {
+		title: "title of child"
+	  }
+	]
+  }
 };
 
 pointer.set(data, "#/parent/children/1", {title: "second child"});
