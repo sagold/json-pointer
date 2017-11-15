@@ -41,7 +41,7 @@ Besides the standard `get` function, this library offers additional functions to
 
 ### pointer.get
 
-> get(data:object|array, pointer:string) -> value:any
+> get(data:object|array, pointer:string|array) -> value:any
 
 returns nested values
 
@@ -69,7 +69,7 @@ console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
 
 ### pointer.set
 
-> set(data:object|array, pointer:string, value:any) -> data:object|array
+> set(data:object|array, pointer:string|array, value:any) -> data:object|array
 
 changes a nested value
 
@@ -109,7 +109,7 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 
 ### pointer.delete
 
-> delete(data:object|array, pointer:string) -> data:object|array
+> delete(data:object|array, pointer:string|array) -> data:object|array
 
 deletes a nested property or item
 
@@ -169,7 +169,8 @@ const gp = require('gson-pointer');
 console.log(gp.join('/path/to/value', '../object')); // output: '/path/to/object'
 ```
 
-in order to join an array received from split, you can use `join(properties, isURI=false)` to retrieve a valid pointer
+in order to join an array received from split, you can use `join(properties:string[], isURI=false) -> string` to
+retrieve a valid pointer
 
 ```js
 const gp = require('gson-pointer');
