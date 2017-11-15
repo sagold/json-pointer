@@ -138,7 +138,7 @@ when resolving the path within data and also ensure that any pointer is returned
 const gp = require("gson-pointer");
 
 // join
-const list = gp.split("/my value/to/child");
+const list = gp.split("#/my value/to/child");
 list.pop();
 console.log(gp.join.list(list)); // output: "/my%20value/to"
 
