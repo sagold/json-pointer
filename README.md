@@ -179,7 +179,7 @@ list.pop();
 console.log(gp.join(list)); // output: '/my/path/to'
 ```
 
-To join an array of pointer, you must use it with `join(...pointers)` or all pointers will be treated as properties:
+To join an array of pointers, you must use it with `join(...pointers)` or all pointers will be treated as properties:
 
 ```js
 const gp = require('gson-pointer');
