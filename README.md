@@ -21,15 +21,12 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 
 ## API
 
-Besides the standard `get` function, this library offers additional functions to work with json-pointer
-
 | method                                | description
 | ------------------------------------- | -------------------------------------------------------------
 | get(data, pointer) -> value           | returns the value at given pointer
 | set(data, pointer, value) -> data     | sets the value at the given path
 | delete(data, pointer) -> data         | removes a property from data
 | join(...pointers) -> pointer          | joins multiple pointers to a single one
-| join([properties], isURI) -> pointer  | joins all properties in the given mode
 | split(pointer) -> [array]             | returns a json-pointer as an array
 
 
@@ -59,7 +56,7 @@ const titleOfChild = gp.get(data, '/parent/child/title'); // output: 'title of c
 console.log(gp.get(data, '/parent/missing/path')); // output: undefined
 ```
 
-and may optionally pass a default value with
+and may optionally return a default value with
 
 ```js
 const gp = require('gson-pointer');
@@ -97,7 +94,7 @@ pointer.set(data, '/parent/children/1', { title: 'second child' });
 console.log(data.parent.children.length); // output: 2
 ```
 
-and may used to create data structures
+and may be used to build data
 
 ```js
 const gp = require('gson-pointer');
@@ -194,7 +191,7 @@ const pointer = gp.join(...['/path/to/value', '../object']);
 console.log(pointer); // output: '/path/to/object'
 
 // passing the array directly, will treat each entry as a property, which will be escaped and resolves to:
-gp.join(['/path/to/value', '../object']); // output: '/~1path/to/value/..~1object'
+gp.join(['/path/to/value', '../object']); // output: '/~1path~1to~1value/..~1object'
 ```
 
 
