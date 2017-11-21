@@ -31,5 +31,8 @@
     "nyc": "^11.3.0",
     "pre-push": "^0.1.1",
     "watch": "^1.0.1"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
   }
 }
