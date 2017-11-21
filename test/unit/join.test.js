@@ -82,10 +82,10 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("");
     });
 
-    it("should accept a list of properties", () => {
-        const pointer = join(["first", "second", "third"]);
+    it("should strip uri fragment with a trailing 'false' value", () => {
+        const pointer = join("#/first", false);
 
-        expect(pointer).to.eq("/first/second/third");
+        expect(pointer).to.eq("/first");
     });
 
 
@@ -132,6 +132,12 @@ describe("pointer.join", () => {
 
             expect(result).to.eq("#/pointer");
         });
+
+        it("should not modify uri pointer", () => {
+            const result = join("#/pointer", true);
+
+            expect(result).to.eq("#/pointer");
+        });
     });
 
 
@@ -171,7 +177,7 @@ describe("pointer.join", () => {
             expect(pointer).to.eq("");
         });
 
-        it("should join all list items", () => {
+        it("should accept a list of properties", () => {
             const pointer = join(["one", "two"]);
 
             expect(pointer).to.eq("/one/two");
