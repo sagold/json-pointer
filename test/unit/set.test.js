@@ -5,7 +5,7 @@ const set = require("../../lib/set");
 
 describe("pointer.set", () => {
 
-    it("should return data fo an invalid pointer", () => {
+    it("should return data for an invalid pointer", () => {
         const data = {};
         const result = set(data);
 
@@ -21,6 +21,11 @@ describe("pointer.set", () => {
     it("should create a new array for missing data and array property", () => {
         const result = set(null, "/[]", true);
         expect(result[0]).to.be.true;
+    });
+
+    it("should ignore operation if pointer is root ", () => {
+        const result = set({}, "#", true);
+        expect(result).to.deep.equal({});
     });
 
     it("should add value to the given property", () => {
