@@ -19,6 +19,20 @@ describe("pointer.split", () => {
         expect(result.length).to.eq(0);
     });
 
+    it("should return empty array for empty string (root pointer)", () => {
+        const result = split("");
+
+        expect(result).to.be.an("array");
+        expect(result.length).to.eq(0);
+    });
+
+    it("should return empty array for '#' (root pointer)", () => {
+        const result = split("#");
+
+        expect(result).to.be.an("array");
+        expect(result.length).to.eq(0);
+    });
+
     it("should return input array", () => {
         const result = split(["a", "b"]);
 
