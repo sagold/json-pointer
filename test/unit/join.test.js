@@ -10,6 +10,12 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("");
     });
 
+    it("should return root pointer if the input is a boolean", () => {
+        const result = join(false);
+
+        expect(result).to.eq("");
+    });
+
     it("should join multiple pointers", () => {
         const pointer = join("/parent", "/child", "/target");
 
@@ -108,6 +114,18 @@ describe("pointer.join", () => {
 
             expect(pointer).to.eq("/pointer/my value");
         });
+
+        it("should return uri root pointer if the input is a boolean with `true`", () => {
+            const result = join(true);
+
+            expect(result).to.eq("#");
+        });
+
+        it("should return a uri fragment pointer if the last argument is `true`", () => {
+            const result = join("pointer", "/myValue", true);
+
+            expect(result).to.eq("#/pointer/myValue");
+        });
     });
 
 
@@ -135,6 +153,50 @@ describe("pointer.join", () => {
             const pointer = join("#/my value", "value2");
 
             expect(pointer).to.eq("#/my%20value/value2");
+        });
+    });
+
+
+    describe("array", () => {
+
+        it("should return an empty string for an empty list", () => {
+            const pointer = join([]);
+
+            expect(pointer).to.eq("");
+        });
+
+        it("should join all list items", () => {
+            const pointer = join(["one", "two"]);
+
+            expect(pointer).to.eq("/one/two");
+        });
+
+        it("should escape list items", () => {
+            const pointer = join(["one/three", "two"]);
+
+            expect(pointer).to.eq("/one~1three/two");
+        });
+
+
+        describe("# (uri fragment)", () => {
+
+            it("should return a '#' for an empty list", () => {
+                const pointer = join([], true);
+
+                expect(pointer).to.eq("#");
+            });
+
+            it("should join all list items", () => {
+                const pointer = join(["one", "two"], true);
+
+                expect(pointer).to.eq("#/one/two");
+            });
+
+            it("should escape list items", () => {
+                const pointer = join(["one/three", "two"], true);
+
+                expect(pointer).to.eq("#/one~1three/two");
+            });
         });
     });
 });
