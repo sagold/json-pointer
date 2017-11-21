@@ -126,6 +126,12 @@ describe("pointer.join", () => {
 
             expect(result).to.eq("#/pointer/myValue");
         });
+
+        it("should convert pointer to uri pointer", () => {
+            const result = join("/pointer", true);
+
+            expect(result).to.eq("#/pointer");
+        });
     });
 
 
