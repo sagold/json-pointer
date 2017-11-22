@@ -140,7 +140,7 @@ returns a json-pointer as a list of (escaped) properties
 
 ```js
 const gp = require('gson-pointer');
-const list = gp.split('#/parent/arrayOrObject/1');
+const list = gp.split('/parent/arrayOrObject/1');
 console.log(list); // output: ['parent', 'arrayOrObject', '1']
 ```
 
@@ -149,7 +149,7 @@ In order to resolve a list of properties, you can directly pass the list to `get
 ```js
 const gp = require('gson-pointer');
 const data = { a: { b: true } };
-const list = gp.split('#/a/b');
+const list = gp.split('/a/b');
 console.log(gp.get(data, list)); // output: true
 ```
 
@@ -198,7 +198,7 @@ gp.join(['/path/to/value', '../object']); // output: '/~1path~1to~1value/..~1obj
 ## Fragment identifier
 
 All methods support a leading uri fragment identifier (#), which will ensure that property-values are uri decoded
-when resolving the path within data and also ensure that any pointer is returned uri encoded with a leading `#`. e.g.
+when resolving the path within data. This also ensures that any pointer is returned uri encoded with a leading `#`. e.g.
 
 ```js
 const gp = require('gson-pointer');
@@ -215,3 +215,17 @@ console.log(pointer); // output: '#/my%20value/to~1child'
 const uriPointer = gp.join(['my value', 'to~1child'], isURI = true);
 console.log(uriPointer); // output: '#/my%20value/to~1child'
 ```
+
+Additionally `join(...pointers, isURI)` may be used to enforce the pointer type, which is helpful in sanitizing inputs
+
+```js
+const uriPointer = gp.join('my pointer', 'to', 'property', isURI = true);
+console.log(uriPointer); // output: '#/my%20pointer/to/property'
+
+const uriSimple = gp.join('/my pointer/to/value', isURI = true);
+console.log(uriSimple); // output: '#/my%20pointer/to/property'
+
+const pointer = gp.join('#/my pointer', 'to', 'property', isURI = false);
+console.log(pointer); // output: '/my pointer/to/property'
+```
+
