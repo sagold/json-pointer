@@ -222,7 +222,7 @@ Additionally `join(...pointers, isURI)` may be used to enforce the pointer type,
 const uriPointer = gp.join('my pointer', 'to', 'property', isURI = true);
 console.log(uriPointer); // output: '#/my%20pointer/to/property'
 
-const uriSimple = gp.join('/my pointer/to/value', isURI = true);
+const uriSimple = gp.join('/my pointer/to/property', isURI = true);
 console.log(uriSimple); // output: '#/my%20pointer/to/property'
 
 const pointer = gp.join('#/my pointer', 'to', 'property', isURI = false);
