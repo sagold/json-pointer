@@ -12,11 +12,12 @@
     "test"
   ],
   "scripts": {
-    "dist": "rm -rf dist;NODE_ENV=production webpack",
+    "dist": "rm -rf dist; NODE_ENV=production webpack",
     "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
-    "tdd": "watch 'npm run test' lib/ test/; exit 0",
+    "tdd": "watch 'yarn test' lib/ test/; exit 0",
+    "prepublish": "yarn dist",
     "lint": "eslint lib",
-    "coverage": "nyc npm run test --reporter=lcov"
+    "coverage": "nyc yarn test --reporter=lcov"
   },
   "keywords": [
     "json-pointer",
