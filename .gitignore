@@ -1,7 +1,7 @@
-node_modules
-status.png
-build
-bower_components
-*.sublime-workspace
 *.sublime-project
+*.sublime-workspace
+.DS_STORE
 /.nyc_output
+dev
+node_modules
+yarn-error.log

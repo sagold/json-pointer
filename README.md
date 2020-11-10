@@ -25,12 +25,12 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 | ------------------------------------- | -------------------------------------------------------------
 | get(data, pointer) -> value           | returns the value at given pointer
 | set(data, pointer, value) -> data     | sets the value at the given path
-| delete(data, pointer) -> data         | removes a property from data
+| remove(data, pointer) -> data         | removes a property from data
 | join(...pointers) -> pointer          | joins multiple pointers to a single one
 | split(pointer) -> [array]             | returns a json-pointer as an array
 
 
-> The methods `get`, `set`, `delete` and `join` also accept a list of properties as pointer. Using join with a list
+> The methods `get`, `set`, `remove` and `join` also accept a list of properties as pointer. Using join with a list
 > of properties, its signature changes to `join(properties:string[], isURI=false) -> string`
 
 
@@ -111,23 +111,23 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
 
-### pointer.delete
+### pointer.remove
 
-> delete(data:object|array, pointer:string|array) -> data:object|array
+> remove(data:object|array, pointer:string|array) -> data:object|array
 
 deletes a nested property or item
 
 ```js
 const gp = require('gson-pointer');
-const data = gp.delete({ parent: { arrayOrObject: [ 0, 1 ] }}, '/parent/arrayOrObject/1');
+const data = gp.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, '/parent/arrayOrObject/1');
 console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
-`delete` also accepts a list of properties as pointer (e.g. split-result)
+`remove` also accepts a list of properties as pointer (e.g. split-result)
 
 ```js
 const gp = require('gson-pointer');
-const data = gp.delete({ parent: { arrayOrObject: [ 0, 1 ] }}, ['parent', 'arrayOrObject', '1']);
+const data = gp.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, ['parent', 'arrayOrObject', '1']);
 console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
@@ -144,7 +144,7 @@ const list = gp.split('/parent/arrayOrObject/1');
 console.log(list); // output: ['parent', 'arrayOrObject', '1']
 ```
 
-In order to resolve a list of properties, you can directly pass the list to `get`, `set` or `delete`
+In order to resolve a list of properties, you can directly pass the list to `get`, `set` or `remove`
 
 ```js
 const gp = require('gson-pointer');

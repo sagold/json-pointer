@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de">
+
+	<head>
+
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	    <!-- <link href="project.css" rel="stylesheet" type="text/css" /> -->
+		<style type="text/css">
+
+			* {
+
+				margin:				0;
+				padding:			0;
+			}
+
+		</style>
+
+		<script type="text/javascript" src="../dist/gsonPointer.js"></script>
+		<script type="text/javascript">
+			const { set, remove, join } = gsonPointer.default;
+			console.log("gson-pointer", gsonPointer);
+			console.log("set", set({}, "/test/prop", 1234));
+			console.log("remove", remove({}, "/test/prop"));
+			console.log("join", join({}, "/test/prop", "../other"));
+		</script>
+
+	</head>
+
+	<body>
+
+	</body>
+
+</html>

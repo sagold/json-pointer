@@ -1,5 +1,6 @@
-const expect = require("chai").expect;
-const remove = require("../../lib/removeUndefinedItems");
+import "mocha";
+import { expect } from "chai";
+import remove from "../../lib/removeUndefinedItems";
 
 
 describe("removeUndefinedItems", () => {

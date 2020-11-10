@@ -2,7 +2,8 @@
   "name": "gson-pointer",
   "version": "3.4.3",
   "description": "json pointer - failsafe data retrieval on js and json objects",
-  "main": "index.js",
+  "main": "dist/gsonPointer.js",
+  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/sagold/gson-pointer.git"
@@ -11,8 +12,9 @@
     "test"
   ],
   "scripts": {
-    "test": "mocha --recursive 'test/unit/*.test.js' -R spec; exit 0",
-    "tdd": "watch 'npm run test' lib/ app/ test/; exit 0",
+    "dist": "rm -rf dist;NODE_ENV=production webpack",
+    "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
+    "tdd": "watch 'npm run test' lib/ test/; exit 0",
     "coverage": "nyc npm run test --reporter=lcov"
   },
   "keywords": [
@@ -22,15 +24,30 @@
     "javascript",
     "make my day"
   ],
-  "author": "Sascha Goldhofer <noreply@saschagoldhofer.de> (https://github.com/sagold/)",
-  "license": "ISC",
+  "author": "Sascha Goldhofer <github@saschagoldhofer.de> (https://github.com/sagold/)",
+  "license": "MIT",
   "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^4.7.0",
+    "@typescript-eslint/parser": "^4.7.0",
     "chai": "^3.5.0",
-    "eslint": "^3.19.0",
+    "eslint": "^7.13.0",
+    "eslint-plugin-array-func": "^3.1.7",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-optimize-regex": "^1.2.0",
+    "eslint-plugin-promise": "^4.2.1",
     "mocha": "^3.1.2",
     "nyc": "^11.3.0",
     "pre-push": "^0.1.1",
-    "watch": "^1.0.1"
+    "terser-webpack-plugin": "^5.0.3",
+    "ts-loader": "^8.0.11",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5",
+    "watch": "^1.0.2",
+    "webpack": "^5.4.0",
+    "webpack-cli": "^4.2.0"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
