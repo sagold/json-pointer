@@ -15,6 +15,7 @@
     "dist": "rm -rf dist;NODE_ENV=production webpack",
     "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
     "tdd": "watch 'npm run test' lib/ test/; exit 0",
+    "lint": "eslint lib",
     "coverage": "nyc npm run test --reporter=lcov"
   },
   "keywords": [
