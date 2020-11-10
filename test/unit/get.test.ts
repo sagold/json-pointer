@@ -1,6 +1,7 @@
 /* eslint no-unused-expressions: 0 */
-const expect = require("chai").expect;
-const get = require("../../lib/get");
+import "mocha";
+import { expect } from "chai";
+import get from "../../lib/get";
 
 
 describe("pointer.get", () => {

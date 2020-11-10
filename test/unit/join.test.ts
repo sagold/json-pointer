@@ -1,16 +1,19 @@
-const expect = require("chai").expect;
-const join = require("../../lib/join");
+import "mocha";
+import { expect } from "chai";
+import join from "../../lib/join";
 
 
 describe("pointer.join", () => {
 
     it("should return an empty string (root pointer)", () => {
+        // @ts-ignore
         const pointer = join();
 
         expect(pointer).to.eq("");
     });
 
     it("should return root pointer if the input is a boolean", () => {
+        // @ts-ignore
         const result = join(false);
 
         expect(result).to.eq("");
@@ -116,6 +119,7 @@ describe("pointer.join", () => {
         });
 
         it("should return uri root pointer if the input is a boolean with `true`", () => {
+            // @ts-ignore
             const result = join(true);
 
             expect(result).to.eq("#");

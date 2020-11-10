@@ -1,11 +1,13 @@
 /* eslint no-unused-expressions: 0 */
-const expect = require("chai").expect;
-const split = require("../../lib/split");
+import "mocha";
+import { expect } from "chai";
+import split from "../../lib/split";
 
 
 describe("pointer.split", () => {
 
     it("should return empty array for missing pointer", () => {
+        // @ts-ignore
         const result = split();
 
         expect(result).to.be.an("array");
@@ -13,6 +15,7 @@ describe("pointer.split", () => {
     });
 
     it("should return empty array for invalid pointer", () => {
+        // @ts-ignore
         const result = split({});
 
         expect(result).to.be.an("array");

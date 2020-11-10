@@ -1,5 +1,6 @@
-const expect = require("chai").expect;
-const gp = require("../../index");
+import "mocha";
+import { expect } from "chai";
+import gp from "../../index";
 
 
 describe("README", () => {

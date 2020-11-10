@@ -1,26 +1,27 @@
-"use strict";
+import split from "./split";
+import { JSONPointer, JSONPath, JSONData } from "./types";
 
 
-var split = require("./split");
-var isArray = /^\[.*\]$/;
-var arrayIndex = /^\[(.+)\]$/;
+const isArray = /^\[.*\]$/;
+const arrayIndex = /^\[(.+)\]$/;
 
 
-function set(data, pointer, value) {
+export default function set<T = JSONData>(data: T, pointer: JSONPointer|JSONPath, value: any): T {
 	if (pointer == null) {
 		return data;
 	}
 
-	var properties = split(pointer);
+	const properties = split(pointer);
 	if (properties.length === 0) {
 		return data;
 	}
 
 	if (data == null) {
+		// @ts-ignore
 		data = isArray.test(properties[0]) ? [] : {};
 	}
 
-	var key, nextKeyIsArray, current = data;
+	let key, nextKeyIsArray, current = data;
 	while (properties.length > 1) {
 		key = properties.shift();
 		nextKeyIsArray = isArray.test(properties[0]);
@@ -33,8 +34,8 @@ function set(data, pointer, value) {
 
 
 function addValue(data, key, value) {
-	var index;
-	var keyAsIndex = key.match(arrayIndex);
+	let index;
+	const keyAsIndex = key.match(arrayIndex);
 	if (key === "[]" && Array.isArray(data)) {
 		data.push(value);
 	} else if (keyAsIndex) {
@@ -50,10 +51,7 @@ function create(data, key, isArray) {
 	if (data[key] != null) {
 		return data[key];
 	}
-	var value = isArray ? [] : {};
+	const value = isArray ? [] : {};
 	addValue(data, key, value);
 	return value;
 }
-
-
-module.exports = set;
