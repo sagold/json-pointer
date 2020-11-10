@@ -21,7 +21,7 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 
 ## Breaking Changes
 
-- 2020/11/09    `gp.delete` has been renamed to `remove`
+- 2020/11/09    since `v4`, `gp.delete` has been renamed to `remove`
 
 
 ## API
