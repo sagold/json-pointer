@@ -2,7 +2,6 @@
   "name": "gson-pointer",
   "version": "4.0.1",
   "description": "json pointer - failsafe data retrieval on js and json objects",
-  "module": "index.ts",
   "main": "dist/gsonPointer.js",
   "types": "dist/index.d.ts",
   "repository": {
