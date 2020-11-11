@@ -1,7 +1,8 @@
 {
   "name": "gson-pointer",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "json pointer - failsafe data retrieval on js and json objects",
+  "module": "index.ts",
   "main": "dist/gsonPointer.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -15,9 +16,9 @@
     "dist": "rm -rf dist; NODE_ENV=production webpack",
     "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
     "tdd": "watch 'yarn test' lib/ test/; exit 0",
-    "prepublish": "yarn dist",
+    "prepublish": "yarn test && yarn dist",
     "lint": "eslint lib",
-    "coverage": "nyc yarn test --reporter=lcov"
+    "coverage": "nyc yarn test"
   },
   "keywords": [
     "json-pointer",
@@ -30,19 +31,18 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.14",
-    "@types/mocha": "^8.0.3",
+    "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.7",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "eslint": "^7.13.0",
     "eslint-plugin-array-func": "^3.1.7",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-optimize-regex": "^1.2.0",
     "eslint-plugin-promise": "^4.2.1",
-    "mocha": "^3.1.2",
-    "nyc": "^11.3.0",
-    "pre-push": "^0.1.1",
+    "mocha": "^8.2.1",
+    "nyc": "^15.1.0",
     "terser-webpack-plugin": "^5.0.3",
     "ts-loader": "^8.0.11",
     "ts-node": "^9.0.0",

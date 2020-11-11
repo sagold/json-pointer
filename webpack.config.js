@@ -4,7 +4,7 @@ const PRODUCTION = process.env.NODE_ENV === "production";
 
 
 const config = {
-    entry: ["./index.ts"],
+    entry: "./index.ts",
     mode: PRODUCTION ? "production" : "development",
     context: __dirname,
     // target: "web",
@@ -20,8 +20,7 @@ const config = {
     },
 
     resolve: {
-        extensions: [".tsx", ".ts", ".js"],
-        alias: {}
+        extensions: [".tsx", ".ts", ".js"]
     },
 
     module: {
@@ -44,14 +43,7 @@ const config = {
 
     optimization: {
         minimizer: [new TerserPlugin()]
-    },
-
-    devServer: {
-        port: 8071,
-        disableHostCheck: true,
-        host: "0.0.0.0"
     }
 };
-
 
 module.exports = config;
