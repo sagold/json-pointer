@@ -6,5 +6,6 @@ import { default as split } from "./lib/split";
 import { default as isRoot } from "./lib/isRoot";
 
 
-export const gp = { get, set, remove, join, split, isRoot };
+const gp = { get, set, remove, join, split, isRoot };
 export default gp;
+export { get, set, remove, join, split, isRoot };

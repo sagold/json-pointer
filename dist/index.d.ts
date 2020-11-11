@@ -4,7 +4,7 @@ import { default as remove } from "./lib/remove";
 import { default as join } from "./lib/join";
 import { default as split } from "./lib/split";
 import { default as isRoot } from "./lib/isRoot";
-export declare const gp: {
+declare const gp: {
     get: typeof get;
     set: typeof set;
     remove: typeof remove;
@@ -13,3 +13,4 @@ export declare const gp: {
     isRoot: typeof isRoot;
 };
 export default gp;
+export { get, set, remove, join, split, isRoot };
