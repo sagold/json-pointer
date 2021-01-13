@@ -7,7 +7,12 @@
 *.tmp
 *.zip
 .DS_Store
+.eslintignore
+.eslintrc
+.nyc_output
 /dev/
 /docs/
 /test/
 Thumbs.db
+tsconfig.json
+webpack.config.js
