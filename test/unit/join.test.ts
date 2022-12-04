@@ -1,10 +1,8 @@
 import "mocha";
 import { expect } from "chai";
-import join from "../../lib/join";
-
+import { join } from "../../lib/join";
 
 describe("pointer.join", () => {
-
     it("should return an empty string (root pointer)", () => {
         // @ts-ignore
         const pointer = join();
@@ -91,9 +89,7 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("/first");
     });
 
-
     describe("# (uri fragment)", () => {
-
         it("should return root pointer", () => {
             const pointer = join("#/first", "..");
 
@@ -144,9 +140,7 @@ describe("pointer.join", () => {
         });
     });
 
-
     describe("escapes", () => {
-
         it("should escape / with ~1", () => {
             const pointer = join("value~11", "value2");
 
@@ -172,9 +166,7 @@ describe("pointer.join", () => {
         });
     });
 
-
     describe("array", () => {
-
         it("should return an empty string for an empty list", () => {
             const pointer = join([]);
 
@@ -193,9 +185,7 @@ describe("pointer.join", () => {
             expect(pointer).to.eq("/one~1three/two");
         });
 
-
         describe("# (uri fragment)", () => {
-
             it("should return a '#' for an empty list", () => {
                 const pointer = join([], true);
 

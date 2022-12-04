@@ -1,6 +1,9 @@
 import { JsonPointer, JsonPath } from "./types";
 
-export default function isRoot(pointer: JsonPointer | JsonPath): boolean {
+/**
+ * @returns true, if this pointer location is the root data
+ */
+export function isRoot(pointer: JsonPointer | JsonPath): boolean {
 	return (
 		pointer === "#" ||
 		pointer === "" ||

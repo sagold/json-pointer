@@ -1,10 +1,8 @@
 import "mocha";
 import { expect } from "chai";
-import isRoot from "../../lib/isRoot";
-
+import { isRoot } from "../../lib/isRoot";
 
 describe("isRoot", () => {
-
     it("should return true for a root pointer ''", () => {
         expect(isRoot("")).to.eq(true);
     });

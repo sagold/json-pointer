@@ -1,6 +1,6 @@
-import { JSONPointer, JSONPath } from "./types";
+import { JsonPointer, JsonPath } from "./types";
 /**
  * From a json-pointer, creates an array of properties, describing a path into
  * json-data
  */
-export default function split(pointer: JSONPointer | JSONPath): JSONPath;
+export declare function split(pointer: JsonPointer | JsonPath): JsonPath;

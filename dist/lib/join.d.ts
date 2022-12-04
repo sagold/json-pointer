@@ -1,6 +1,6 @@
-import { JSONPointer, JSONPath } from "./types";
+import { JsonPointer, JsonPath } from "./types";
 /**
- * Convert a list of JSONPointers, or a single JSONPath to a valid json-pointer
+ * Convert a list of JsonPointers, or a single JsonPath to a valid json-pointer
  *
  * Supports as input:
  * 	- a json-path
@@ -19,4 +19,4 @@ import { JSONPointer, JSONPath } from "./types";
  *	`join("metadata", "title", true)` // "#/metadata/title"
  *	`join("metadata", "../title")` // "title"
  */
-export default function join(firstPointer: JSONPointer | JSONPath, ...args: any[]): JSONPointer;
+export declare function join(firstPointer: JsonPointer | JsonPath, ...args: any[]): JsonPointer;

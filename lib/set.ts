@@ -1,4 +1,4 @@
-import split from "./split";
+import { split } from "./split";
 import { JsonPointer, JsonPath, JsonData } from "./types";
 
 const isArray = /^\[.*\]$/;
@@ -13,7 +13,7 @@ function accessToPrototype(key: string, properties: string[]) {
 	);
 }
 
-export default function set<T = JsonData>(
+export function set<T = JsonData>(
 	data: T,
 	pointer: JsonPointer | JsonPath,
 	value: any

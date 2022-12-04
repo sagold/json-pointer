@@ -1,6 +1,6 @@
-import split from "./split";
-import get from "./get";
-import removeUndefinedItems from "./removeUndefinedItems";
+import { split } from "./split";
+import { get } from "./get";
+import { removeUndefinedItems } from "./removeUndefinedItems";
 import { JsonPointer, JsonPath } from "./types";
 
 /**
@@ -11,7 +11,7 @@ import { JsonPointer, JsonPath } from "./types";
  * @param pointer - location of data to remove
  * @param [keepArrayIndices] - if set to `true`, will set array element to undefined (instead of removing it)
  */
-export default function pointerDelete<T = any>(
+export function remove<T = any>(
 	data: T,
 	pointer: JsonPointer | JsonPath,
 	keepArrayIndices?: boolean

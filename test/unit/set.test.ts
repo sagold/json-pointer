@@ -1,11 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
 import { expect } from "chai";
-import set from "../../lib/set";
-
+import { set } from "../../lib/set";
 
 describe("pointer.set", () => {
-
     it("should return data for an invalid pointer", () => {
         const data = {};
         // @ts-ignore
@@ -38,13 +36,16 @@ describe("pointer.set", () => {
     });
 
     it("should add value on the given path", () => {
-        const result = set<{ path?: { to?: { property?: any }}}>({}, "/path/to/property", true);
+        const result = set<{ path?: { to?: { property?: any } } }>(
+            {},
+            "/path/to/property",
+            true
+        );
         expect(result.path.to.property).to.be.true;
     });
 
     it("should not remove any other properties", () => {
-        const result = set<{ path?: { to?: { property?: any, id: string }}}>
-        (
+        const result = set<{ path?: { to?: { property?: any; id: string } } }>(
             { path: { to: { id: "parent" } } },
             "/path/to/property",
             true
@@ -83,7 +84,11 @@ describe("pointer.set", () => {
     });
 
     it("should insert object in array", () => {
-        const result = set<{ array?: Array<any> }>({}, "/array/[1]/valid", true);
+        const result = set<{ array?: Array<any> }>(
+            {},
+            "/array/[1]/valid",
+            true
+        );
 
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.an("object");
@@ -91,7 +96,11 @@ describe("pointer.set", () => {
     });
 
     it("should accept a list of properties as pointer", () => {
-        const result = set<{ array?: Array<any> }>({}, ["array", "[1]", "valid"], true);
+        const result = set<{ array?: Array<any> }>(
+            {},
+            ["array", "[1]", "valid"],
+            true
+        );
 
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.an("object");
@@ -99,15 +108,22 @@ describe("pointer.set", () => {
     });
 
     describe("# (uri fragment)", () => {
-
         it("should add value on the given path", () => {
-            const result = set<{ path?: { to?: { property?: boolean }} }>({}, "#/path/to/property", true);
+            const result = set<{ path?: { to?: { property?: boolean } } }>(
+                {},
+                "#/path/to/property",
+                true
+            );
 
             expect(result.path.to.property).to.be.true;
         });
 
         it("should insert object in array", () => {
-            const result = set<{ array?: Array<any> }>({}, "#/array/[1]/valid", true);
+            const result = set<{ array?: Array<any> }>(
+                {},
+                "#/array/[1]/valid",
+                true
+            );
 
             expect(result.array.length).to.eq(2);
             expect(result.array[1]).to.be.an("object");
@@ -116,7 +132,6 @@ describe("pointer.set", () => {
     });
 
     describe("escapes", () => {
-
         it("should interpret '~1' as '/' in property", () => {
             const result = set({}, "/my~1value", true);
 

@@ -1,11 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
 import { expect } from "chai";
-import split from "../../lib/split";
-
+import { split } from "../../lib/split";
 
 describe("pointer.split", () => {
-
     it("should return empty array for missing pointer", () => {
         // @ts-ignore
         const result = split();
@@ -85,9 +83,7 @@ describe("pointer.split", () => {
         expect(result).to.deep.eq(["my", "path"]);
     });
 
-
     describe("rfc 6901", () => {
-
         it("should decode ~1 to /", () => {
             const result = split("/my~1/path");
 

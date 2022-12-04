@@ -1,4 +1,4 @@
-import isRoot from "./isRoot";
+import { isRoot } from "./isRoot";
 import { JsonPointer, JsonPath } from "./types";
 
 const matchSlashes = /~1/g;
@@ -18,7 +18,7 @@ function sanitizeAndDecodeProperty(property: string): string {
  * From a json-pointer, creates an array of properties, describing a path into
  * json-data
  */
-export default function split(pointer: JsonPointer | JsonPath): JsonPath {
+export function split(pointer: JsonPointer | JsonPath): JsonPath {
 	if (pointer == null || typeof pointer !== "string" || isRoot(pointer)) {
 		return Array.isArray(pointer) ? pointer : [];
 	}

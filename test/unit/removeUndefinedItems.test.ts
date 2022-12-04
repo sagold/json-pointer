@@ -1,10 +1,8 @@
 import "mocha";
 import { expect } from "chai";
-import remove from "../../lib/removeUndefinedItems";
-
+import { removeUndefinedItems as remove } from "../../lib/removeUndefinedItems";
 
 describe("removeUndefinedItems", () => {
-
     it("should remove undefind items", () => {
         const result = remove([1, undefined, 3, 4]);
 

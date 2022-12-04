@@ -2,10 +2,10 @@
  * Removes all `undefined` values within an array without creating additional
  * arrays
  */
-export default function removeUndefinedItems<T = any>(array: Array<T>): Array<T> {
+export function removeUndefinedItems<T = any>(array: Array<T>): Array<T> {
 	let i = 0;
 	let skip = 0;
-	while ((i + skip) < array.length) {
+	while (i + skip < array.length) {
 		if (array[i + skip] === undefined) {
 			skip += 1;
 		}

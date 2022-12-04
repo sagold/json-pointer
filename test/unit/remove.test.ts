@@ -1,11 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
 import { expect } from "chai";
-import remove from "../../lib/remove";
-
+import { remove } from "../../lib/remove";
 
 describe("remove", () => {
-
     it("should delete the given property", () => {
         const result = remove({ property: "propertyValue" }, "/property");
 
@@ -46,7 +44,6 @@ describe("remove", () => {
     });
 
     describe("array", () => {
-
         it("should delete item in array", () => {
             const result = remove({ array: [0, 1, 2] }, "/array/0");
 
@@ -54,9 +51,7 @@ describe("remove", () => {
         });
     });
 
-
     describe("# (uri fragment)", () => {
-
         it("should delete nested property only", () => {
             const result = remove({ a: { b: {}, c: {} } }, "#/a/b");
 
@@ -72,7 +67,6 @@ describe("remove", () => {
     });
 
     describe("escapes", () => {
-
         it("should interpret '~1' as '/' in property", () => {
             const result = remove({ "my/value": true }, "/my~1value");
 

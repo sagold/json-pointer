@@ -1,2 +1,2 @@
-import { JSONPointer, JSONPath, JSONData } from "./types";
-export default function set<T = JSONData>(data: T, pointer: JSONPointer | JSONPath, value: any): T;
+import { JsonPointer, JsonPath, JsonData } from "./types";
+export declare function set<T = JsonData>(data: T, pointer: JsonPointer | JsonPath, value: any): T;

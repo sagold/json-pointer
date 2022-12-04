@@ -1,11 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
 import { expect } from "chai";
-import get from "../../lib/get";
-
+import { get } from "../../lib/get";
 
 describe("pointer.get", () => {
-
     it("should return undefined if property does not exist", () => {
         const result = get({ property: "propertyValue" }, "/value");
         expect(result).to.be.undefined;
@@ -27,12 +25,18 @@ describe("pointer.get", () => {
     });
 
     it("should return nested properties", () => {
-        const result = get({ property: { value: "propertyValue" } }, "/property/value");
+        const result = get(
+            { property: { value: "propertyValue" } },
+            "/property/value"
+        );
         expect(result).to.eq("propertyValue");
     });
 
     it("should return 'undefined' if nested property does not exist", () => {
-        const result = get({ property: { value: "propertyValue" } }, "/property/missing/value");
+        const result = get(
+            { property: { value: "propertyValue" } },
+            "/property/missing/value"
+        );
         expect(result).to.be.undefined;
     });
 
@@ -42,30 +46,39 @@ describe("pointer.get", () => {
     });
 
     it("should also accept a list of properties as pointer", () => {
-        const result = get({ property: { value: "propertyValue" } }, ["property", "value"]);
+        const result = get({ property: { value: "propertyValue" } }, [
+            "property",
+            "value",
+        ]);
         expect(result).to.be.eq("propertyValue");
     });
 
     it("should return 'defaultValue' if property does not exist", () => {
-        const result = get({ property: { value: "propertyValue" } }, "/property/missing", 42);
+        const result = get(
+            { property: { value: "propertyValue" } },
+            "/property/missing",
+            42
+        );
         expect(result).to.eq(42);
     });
 
     describe("rfc 6901", () => {
-
         let data;
-        beforeEach(() => (data = {
-            foo: ["bar", "baz"],
-            "": 0,
-            "a/b": 1,
-            "c%d": 2,
-            "e^f": 3,
-            "g|h": 4,
-            "i\\j": 5,
-            "k\"l": 6,
-            " ": 7,
-            "m~n": 8
-        }));
+        beforeEach(
+            () =>
+                (data = {
+                    foo: ["bar", "baz"],
+                    "": 0,
+                    "a/b": 1,
+                    "c%d": 2,
+                    "e^f": 3,
+                    "g|h": 4,
+                    "i\\j": 5,
+                    'k"l': 6,
+                    " ": 7,
+                    "m~n": 8,
+                })
+        );
 
         it("should return the document for an empty pointer", () => {
             const result = get(data, "");
@@ -113,7 +126,7 @@ describe("pointer.get", () => {
         });
 
         it("should interprete '\"' as part of property", () => {
-            const result = get(data, "/k\"l");
+            const result = get(data, '/k"l');
             expect(result).to.eq(6);
         });
 
@@ -128,21 +141,23 @@ describe("pointer.get", () => {
         });
     });
 
-
     describe("rfc 6901 - uri fragment", () => {
         let data;
-        beforeEach(() => (data = {
-            foo: ["bar", "baz"],
-            "": 0,
-            "a/b": 1,
-            "c%d": 2,
-            "e^f": 3,
-            "g|h": 4,
-            "i\\j": 5,
-            "k\"l": 6,
-            " ": 7,
-            "m~n": 8
-        }));
+        beforeEach(
+            () =>
+                (data = {
+                    foo: ["bar", "baz"],
+                    "": 0,
+                    "a/b": 1,
+                    "c%d": 2,
+                    "e^f": 3,
+                    "g|h": 4,
+                    "i\\j": 5,
+                    'k"l': 6,
+                    " ": 7,
+                    "m~n": 8,
+                })
+        );
 
         it("should return the root document for '#'", () => {
             const result = get(data, "#");
@@ -205,23 +220,27 @@ describe("pointer.get", () => {
         });
     });
 
-
     describe("issue #1", () => {
-
         it("should correctly escape ~0~1", () => {
-            const result = get({
-                "~0~1": false,
-                "~/": true
-            }, "/~0~1");
+            const result = get(
+                {
+                    "~0~1": false,
+                    "~/": true,
+                },
+                "/~0~1"
+            );
 
             expect(result).to.eq(true);
         });
 
         it("should correctly escape multiple escapes", () => {
-            const result = get({
-                "~0~1/0/1": true,
-                "~00~01~10~11": false
-            }, "/~00~01~10~11");
+            const result = get(
+                {
+                    "~0~1/0/1": true,
+                    "~00~01~10~11": false,
+                },
+                "/~00~01~10~11"
+            );
 
             expect(result).to.eq(true);
         });

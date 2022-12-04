@@ -1,4 +1,4 @@
-import split from "./split";
+import { split } from "./split";
 import { JsonPointer, JsonPath } from "./types";
 
 const matchMutlipleSlashes = /\/+/g;
@@ -43,7 +43,7 @@ function joinList(list: JsonPath, isURI: boolean) {
  *	`join("metadata", "title", true)` // "#/metadata/title"
  *	`join("metadata", "../title")` // "title"
  */
-export default function join(
+export function join(
 	firstPointer: JsonPointer | JsonPath,
 	...args
 ): JsonPointer {
