@@ -1,19 +1,19 @@
 import split from "./split";
-import { JSONPointer, JSONPath } from "./types";
-
+import { JsonPointer, JsonPath } from "./types";
 
 const matchMutlipleSlashes = /\/+/g;
 const matchTildes = /~/g;
 const matchSlashes = /\//g;
 
-
-function joinList(list: JSONPath, isURI: boolean) {
+function joinList(list: JsonPath, isURI: boolean) {
 	if (list.length === 0) {
 		return isURI ? "#" : "";
 	}
 
 	for (let i = 0, l = list.length; i < l; i += 1) {
-		list[i] = list[i].replace(matchTildes, "~0").replace(matchSlashes, "~1");
+		list[i] = list[i]
+			.replace(matchTildes, "~0")
+			.replace(matchSlashes, "~1");
 		if (isURI) {
 			list[i] = encodeURIComponent(list[i]);
 		}
@@ -23,9 +23,8 @@ function joinList(list: JSONPath, isURI: boolean) {
 	return pointer.replace(matchMutlipleSlashes, "/");
 }
 
-
 /**
- * Convert a list of JSONPointers, or a single JSONPath to a valid json-pointer
+ * Convert a list of JsonPointers, or a single JsonPath to a valid json-pointer
  *
  * Supports as input:
  * 	- a json-path
@@ -44,15 +43,21 @@ function joinList(list: JSONPath, isURI: boolean) {
  *	`join("metadata", "title", true)` // "#/metadata/title"
  *	`join("metadata", "../title")` // "title"
  */
-export default function join(firstPointer: JSONPointer|JSONPath, ...args): JSONPointer {
+export default function join(
+	firstPointer: JsonPointer | JsonPath,
+	...args
+): JsonPointer {
 	const result = [];
 	if (Array.isArray(firstPointer)) {
-		return joinList(firstPointer, arguments[1] === true);  // eslint-disable-line
+		return joinList(firstPointer, arguments[1] === true); // eslint-disable-line
 	}
 
 	// determine type of pointer
-	const option = arguments[arguments.length - 1];  // eslint-disable-line
-	const isURI = (typeof option === "boolean") ? option : (firstPointer && firstPointer[0] === "#");
+	const option = arguments[arguments.length - 1]; // eslint-disable-line
+	const isURI =
+		typeof option === "boolean"
+			? option
+			: firstPointer && firstPointer[0] === "#";
 
 	for (let i = 0, l = arguments.length; i < l; i += 1) {
 		result.push.apply(result, split(arguments[i])); // eslint-disable-line
@@ -72,4 +77,4 @@ export default function join(firstPointer: JSONPointer|JSONPath, ...args): JSONP
 	}
 
 	return joinList(pointer, isURI);
- }
+}

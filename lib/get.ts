@@ -1,13 +1,16 @@
 import split from "./split";
 import isRoot from "./isRoot";
-import { JSONPointer, JSONPath, JSONData } from "./types";
-
+import { JsonPointer, JsonPath, JsonData } from "./types";
 
 /**
  * Fetch value at given json-pointer. Returns undefined, if no value can be
  * found at json-pointer
  */
-export default function get<T = any>(data: JSONData, pointer: JSONPointer|JSONPath, defaultValue?: T): T|undefined {
+export default function get<T = any>(
+	data: JsonData,
+	pointer: JsonPointer | JsonPath,
+	defaultValue?: T
+): T | undefined {
 	if (pointer == null || data == null) {
 		return defaultValue;
 	}
@@ -21,8 +24,7 @@ export default function get<T = any>(data: JSONData, pointer: JSONPointer|JSONPa
 	return result;
 }
 
-
-function run<T = any>(data: JSONData, path: JSONPath): T|undefined {
+function run<T = any>(data: JsonData, path: JsonPath): T | undefined {
 	const property = path.shift();
 	if (data === undefined) {
 		return;

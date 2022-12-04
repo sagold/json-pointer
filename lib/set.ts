@@ -1,5 +1,5 @@
 import split from "./split";
-import { JSONPointer, JSONPath, JSONData } from "./types";
+import { JsonPointer, JsonPath, JsonData } from "./types";
 
 const isArray = /^\[.*\]$/;
 const arrayIndex = /^\[(.+)\]$/;
@@ -13,9 +13,9 @@ function accessToPrototype(key: string, properties: string[]) {
 	);
 }
 
-export default function set<T = JSONData>(
+export default function set<T = JsonData>(
 	data: T,
-	pointer: JSONPointer | JSONPath,
+	pointer: JsonPointer | JsonPath,
 	value: any
 ): T {
 	if (pointer == null) {

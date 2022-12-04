@@ -1,3 +1,3 @@
-export type JSONPointer = string;
-export type JSONPath = Array<string>;
-export type JSONData = any;
+export type JsonPointer = string;
+export type JsonPath = Array<string>;
+export type JsonData = any;

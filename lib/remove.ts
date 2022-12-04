@@ -1,8 +1,7 @@
 import split from "./split";
 import get from "./get";
 import removeUndefinedItems from "./removeUndefinedItems";
-import { JSONPointer, JSONPath } from "./types"
-
+import { JsonPointer, JsonPath } from "./types";
 
 /**
  * Deletes a value at specified json-pointer from data
@@ -12,7 +11,11 @@ import { JSONPointer, JSONPath } from "./types"
  * @param pointer - location of data to remove
  * @param [keepArrayIndices] - if set to `true`, will set array element to undefined (instead of removing it)
  */
-export default function pointerDelete<T = any>(data: T, pointer: JSONPointer|JSONPath, keepArrayIndices?: boolean): T {
+export default function pointerDelete<T = any>(
+	data: T,
+	pointer: JsonPointer | JsonPath,
+	keepArrayIndices?: boolean
+): T {
 	const properties = split(pointer);
 	const lastProperty = properties.pop();
 	const target = get(data, properties);
