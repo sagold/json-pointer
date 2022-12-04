@@ -32,13 +32,14 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 
 ## API
 
-| method                                | description
-| ------------------------------------- | -------------------------------------------------------------
-| get(data, pointer) -> value           | returns the value at given pointer
-| set(data, pointer, value) -> data     | sets the value at the given path
-| remove(data, pointer) -> data         | removes a property from data
-| join(...pointers) -> pointer          | joins multiple pointers to a single one
-| split(pointer) -> [array]             | returns a json-pointer as an array
+| method                                    | description
+| ----------------------------------------- | -------------------------------------------------------------
+| get(data, pointer) -> value               | returns the value at given pointer
+| set(data, pointer, value) -> data         | sets the value at the given path
+| remove(data, pointer) -> data             | removes a property from data
+| join(...pointers) -> pointer              | joins multiple pointers to a single one
+| split(pointer) -> [array]                 | returns a json-pointer as an array
+| splitLast(pointer) -> [pointer, property] | returns parent-pointer and last property
 
 
 > The methods `get`, `set`, `remove` and `join` also accept a list of properties as pointer. Using join with a list
@@ -47,7 +48,7 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 
 ## Usage Examples
 
-### pointer.get
+### get
 
 > get(data:object|array, pointer:string|array, defaultValue:any) -> value:any
 
@@ -82,7 +83,7 @@ const titleOfChild = pointer.get(data, ['parent', 'child', 'title']); // output:
 console.log(pointer.get(data, ['parent', 'missing', 'path'])); // output: undefined
 ```
 
-### pointer.set
+### set
 
 > set(data:object|array, pointer:string|array, value:any) -> data:object|array
 
@@ -122,7 +123,7 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
 
-### pointer.remove
+### remove
 
 > remove(data:object|array, pointer:string|array) -> data:object|array
 
@@ -143,7 +144,7 @@ console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
 
-### pointer.split
+### split
 
 > split(pointer:string) -> properties:array
 
@@ -165,7 +166,21 @@ console.log(pointer.get(data, list)); // output: true
 ```
 
 
-### pointer.join
+### splitLast
+
+> splitLast(pointer:string) -> [pointer, property]
+
+separates json-pointers last property and returns both values as [parent-pointer, property]
+
+```js
+import pointer from '@sagold/json-pointer';
+const [parent, property] = pointer.splitLast('/parent/arrayOrObject/1');
+console.log(parent); // output: '/parent/arrayOrObject'
+console.log(property); // output: '1'
+```
+
+
+### join
 
 > join(...pointers:string[]) -> pointer:string
 
