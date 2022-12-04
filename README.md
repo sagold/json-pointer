@@ -1,5 +1,7 @@
 <h1 align="left"><img src="./docs/gson-pointer.png" width="296" alt="gson-pointer"></h1>
 
+!! This package has been moved to @sagold/json-editor. Please switch package name
+
 This is a json-pointer implementation following [RFC 6901](https://tools.ietf.org/html/rfc6901).
 As the _error handling_ is not further specified, this implementation will return `undefined` for any invalid
 pointer/missing data, making it very handy to check uncertain data, i.e.
