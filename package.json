@@ -14,7 +14,7 @@
   "scripts": {
     "dist": "rm -rf dist; NODE_ENV=production webpack",
     "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
-    "prepublish": "yarn test && yarn dist",
+    "prepublishOnly": "yarn test && yarn dist",
     "lint": "eslint lib",
     "coverage": "nyc yarn test"
   },
