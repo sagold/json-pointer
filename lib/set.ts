@@ -1,12 +1,23 @@
 import split from "./split";
 import { JSONPointer, JSONPath, JSONData } from "./types";
 
-
 const isArray = /^\[.*\]$/;
 const arrayIndex = /^\[(.+)\]$/;
 
+function accessToPrototype(key: string, properties: string[]) {
+	return (
+		key === "__proto__" ||
+		(key == "constructor" &&
+			properties.length > 0 &&
+			properties[0] == "prototype")
+	);
+}
 
-export default function set<T = JSONData>(data: T, pointer: JSONPointer|JSONPath, value: any): T {
+export default function set<T = JSONData>(
+	data: T,
+	pointer: JSONPointer | JSONPath,
+	value: any
+): T {
 	if (pointer == null) {
 		return data;
 	}
@@ -21,17 +32,21 @@ export default function set<T = JSONData>(data: T, pointer: JSONPointer|JSONPath
 		data = isArray.test(properties[0]) ? [] : {};
 	}
 
-	let key, nextKeyIsArray, current = data;
+	let key,
+		nextKeyIsArray,
+		current = data;
 	while (properties.length > 1) {
 		key = properties.shift();
 		nextKeyIsArray = isArray.test(properties[0]);
+		if (accessToPrototype(key, properties)) {
+			continue;
+		}
 		current = create(current, key, nextKeyIsArray);
 	}
 	key = properties.pop();
 	addValue(current, key, value);
 	return data;
 }
-
 
 function addValue(data, key, value) {
 	let index;
@@ -45,7 +60,6 @@ function addValue(data, key, value) {
 		data[key] = value;
 	}
 }
-
 
 function create(data, key, isArray) {
 	if (data[key] != null) {
