@@ -1,12 +1,17 @@
-<h1 align="left"><img src="./docs/gson-pointer.png" width="296" alt="gson-pointer"></h1>
-
-!! This package has been moved to @sagold/json-editor. Please switch package name
+<h1 align="left"><img src="./docs/json-pointer.png" width="296" alt="@sagold/json-pointer"></h1>
 
 This is a json-pointer implementation following [RFC 6901](https://tools.ietf.org/html/rfc6901).
 As the _error handling_ is not further specified, this implementation will return `undefined` for any invalid
-pointer/missing data, making it very handy to check uncertain data, i.e.
+pointer/missing data, making it very convenient to check uncertain data, i.e.
+
+install
+
+`yarn add @sagold/json-pointer`
+
+usage
 
 ```js
+import pointer from '@sagold/json-pointer';
 const data = {};
 if (pointer.get(data, '/path/to/nested/item') !== undefined) {
     // value is set, do something
@@ -18,12 +23,11 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 }
 ```
 
-**install with** `yarn add gson-pointer` or `npm i gson-pointer`
-
 
 ## Breaking Changes
 
-- 2020/11/09    since `v4`, `gp.delete` has been renamed to `remove`
+- 2022/12/02 with `v5`, package has been renamed to `json-pointer` and published under `@sagold/json-pointer`
+- 2020/11/09 with `v4`, `pointer.delete` has been renamed to `remove`
 
 
 ## API
@@ -50,7 +54,7 @@ if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item
 returns nested values
 
 ```js
-const gp = require('gson-pointer');
+import pointer from '@sagold/json-pointer';
 const data = {
     parent: {
         child: {
@@ -59,23 +63,23 @@ const data = {
     }
 }
 
-const titleOfChild = gp.get(data, '/parent/child/title'); // output: 'title of child'
-console.log(gp.get(data, '/parent/missing/path')); // output: undefined
+const titleOfChild = pointer.get(data, '/parent/child/title'); // output: 'title of child'
+console.log(pointer.get(data, '/parent/missing/path')); // output: undefined
 ```
 
 and may optionally return a default value with
 
 ```js
-const gp = require('gson-pointer');
-const value = gp.get({}, "/invalid/value", 42);
+import pointer from '@sagold/json-pointer';
+const value = pointer.get({}, "/invalid/value", 42);
 console.log(value); // output: 42
 ```
 
 `get` also accepts a list of properties as pointer (e.g. split-result)
 
 ```js
-const titleOfChild = gp.get(data, ['parent', 'child', 'title']); // output: 'title of child'
-console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
+const titleOfChild = pointer.get(data, ['parent', 'child', 'title']); // output: 'title of child'
+console.log(pointer.get(data, ['parent', 'missing', 'path'])); // output: undefined
 ```
 
 ### pointer.set
@@ -85,7 +89,7 @@ console.log(gp.get(data, ['parent', 'missing', 'path'])); // output: undefined
 changes a nested value
 
 ```js
-const gp = require('gson-pointer');
+import pointer from '@sagold/json-pointer';
 
 var data = {
     parent: {
@@ -104,16 +108,16 @@ console.log(data.parent.children.length); // output: 2
 and may be used to build data
 
 ```js
-const gp = require('gson-pointer');
-const data = gp.set({}, '/list/[]/value', 42);
+import pointer from '@sagold/json-pointer';
+const data = pointer.set({}, '/list/[]/value', 42);
 console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
 `set` also accepts a list of properties as pointer (e.g. split-result)
 
 ```js
-const gp = require('gson-pointer');
-const data = gp.set({}, ['list', '[]', 'value'], 42);
+import pointer from '@sagold/json-pointer';
+const data = pointer.set({}, ['list', '[]', 'value'], 42);
 console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
@@ -125,16 +129,16 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 deletes a nested property or item
 
 ```js
-const gp = require('gson-pointer');
-const data = gp.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, '/parent/arrayOrObject/1');
+import pointer from '@sagold/json-pointer';
+const data = pointer.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, '/parent/arrayOrObject/1');
 console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
 `remove` also accepts a list of properties as pointer (e.g. split-result)
 
 ```js
-const gp = require('gson-pointer');
-const data = gp.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, ['parent', 'arrayOrObject', '1']);
+import pointer from '@sagold/json-pointer';
+const data = pointer.remove({ parent: { arrayOrObject: [ 0, 1 ] }}, ['parent', 'arrayOrObject', '1']);
 console.log(data.parent.arrayOrObject); // output: [0]
 ```
 
@@ -146,18 +150,18 @@ console.log(data.parent.arrayOrObject); // output: [0]
 returns a json-pointer as a list of (escaped) properties
 
 ```js
-const gp = require('gson-pointer');
-const list = gp.split('/parent/arrayOrObject/1');
+import pointer from '@sagold/json-pointer';
+const list = pointer.split('/parent/arrayOrObject/1');
 console.log(list); // output: ['parent', 'arrayOrObject', '1']
 ```
 
 In order to resolve a list of properties, you can directly pass the list to `get`, `set` or `remove`
 
 ```js
-const gp = require('gson-pointer');
+import pointer from '@sagold/json-pointer';
 const data = { a: { b: true } };
-const list = gp.split('/a/b');
-console.log(gp.get(data, list)); // output: true
+const list = pointer.split('/a/b');
+console.log(pointer.get(data, list)); // output: true
 ```
 
 
@@ -168,37 +172,37 @@ console.log(gp.get(data, list)); // output: true
 joins all arguments to a valid json pointer
 
 ```js
-const gp = require('gson-pointer');
+import pointer from '@sagold/json-pointer';
 const key = 'my key';
-console.log(gp.join('root', key, '/to/target')); // output: '/root/my key/to/target'
+console.log(pointer.join('root', key, '/to/target')); // output: '/root/my key/to/target'
 ```
 
 and joins relative pointers as expected
 
 ```js
-const gp = require('gson-pointer');
-console.log(gp.join('/path/to/value', '../object')); // output: '/path/to/object'
+import pointer from '@sagold/json-pointer';
+console.log(pointer.join('/path/to/value', '../object')); // output: '/path/to/object'
 ```
 
 in order to join an array received from split, you can use `join(properties:string[], isURI=false) -> string` to
 retrieve a valid pointer
 
 ```js
-const gp = require('gson-pointer');
-const list = gp.split('/my/path/to/child');
+import pointer from '@sagold/json-pointer';
+const list = pointer.split('/my/path/to/child');
 list.pop();
-console.log(gp.join(list)); // output: '/my/path/to'
+console.log(pointer.join(list)); // output: '/my/path/to'
 ```
 
 To join an array of pointers, you must use it with `join(...pointers)` or all pointers will be treated as properties:
 
 ```js
-const gp = require('gson-pointer');
-const pointer = gp.join(...['/path/to/value', '../object']);
-console.log(pointer); // output: '/path/to/object'
+import pointer from '@sagold/json-pointer';
+const path = pointer.join(...['/path/to/value', '../object']);
+console.log(path); // output: '/path/to/object'
 
 // passing the array directly, will treat each entry as a property, which will be escaped and resolves to:
-gp.join(['/path/to/value', '../object']); // output: '/~1path~1to~1value/..~1object'
+pointer.join(['/path/to/value', '../object']); // output: '/~1path~1to~1value/..~1object'
 ```
 
 
@@ -208,31 +212,31 @@ All methods support a leading uri fragment identifier (#), which will ensure tha
 when resolving the path within data. This also ensures that any pointer is returned uri encoded with a leading `#`. e.g.
 
 ```js
-const gp = require('gson-pointer');
+import pointer from '@sagold/json-pointer';
 
 // get
-const value = gp.get({ 'my value': true }, '#/my%20value');
+const value = pointer.get({ 'my value': true }, '#/my%20value');
 console.log(value); // output: true
 
 // join
-const pointer = gp.join('#/my value/to%20parent', '../to~1child');
+const pointer = pointer.join('#/my value/to%20parent', '../to~1child');
 console.log(pointer); // output: '#/my%20value/to~1child'
 
 // join an array of properties
-const uriPointer = gp.join(['my value', 'to~1child'], isURI = true);
+const uriPointer = pointer.join(['my value', 'to~1child'], isURI = true);
 console.log(uriPointer); // output: '#/my%20value/to~1child'
 ```
 
 Additionally `join(...pointers, isURI)` may be used to enforce the pointer type, which is helpful in sanitizing inputs
 
 ```js
-const uriPointer = gp.join('my pointer', 'to', 'property', isURI = true);
+const uriPointer = pointer.join('my pointer', 'to', 'property', isURI = true);
 console.log(uriPointer); // output: '#/my%20pointer/to/property'
 
-const uriSimple = gp.join('/my pointer/to/property', isURI = true);
+const uriSimple = pointer.join('/my pointer/to/property', isURI = true);
 console.log(uriSimple); // output: '#/my%20pointer/to/property'
 
-const pointer = gp.join('#/my pointer', 'to', 'property', isURI = false);
+const pointer = pointer.join('#/my pointer', 'to', 'property', isURI = false);
 console.log(pointer); // output: '/my pointer/to/property'
 ```
 

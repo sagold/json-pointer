@@ -20,8 +20,8 @@
 
 		<script type="text/javascript" src="../dist/gsonPointer.js"></script>
 		<script type="text/javascript">
-			const { set, remove, join } = gsonPointer.default;
-			console.log("gson-pointer", gsonPointer);
+			const { set, remove, join } = jsonPointer.default;
+			console.log("json-pointer", jsonPointer);
 			console.log("set", set({}, "/test/prop", 1234));
 			console.log("remove", remove({}, "/test/prop"));
 			console.log("join", join({}, "/test/prop", "../other"));

@@ -2,7 +2,6 @@ const path = require("path"); // eslint-disable-line
 const TerserPlugin = require("terser-webpack-plugin"); // eslint-disable-line
 const PRODUCTION = process.env.NODE_ENV === "production";
 
-
 const config = {
     entry: "./index.ts",
     mode: PRODUCTION ? "production" : "development",
@@ -12,15 +11,15 @@ const config = {
     stats: { children: false },
     output: {
         path: path.resolve(__dirname, PRODUCTION ? "dist" : "dev"),
-        filename: 'gsonPointer.js',
-        libraryTarget: 'umd',
-        library: 'gsonPointer',
+        filename: "jsonPointer.js",
+        libraryTarget: "umd",
+        library: "jsonPointer",
         umdNamedDefine: true,
-        globalObject: `(typeof self !== 'undefined' ? self : this)`
+        globalObject: `(typeof self !== 'undefined' ? self : this)`,
     },
 
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js"],
     },
 
     module: {
@@ -33,17 +32,17 @@ const config = {
                         configFile: path.resolve(__dirname, "tsconfig.json"),
                         compilerOptions: {
                             sourceMap: !PRODUCTION,
-                            declaration: PRODUCTION
-                        }
-                    }
-                }
-            }
-        ]
+                            declaration: PRODUCTION,
+                        },
+                    },
+                },
+            },
+        ],
     },
 
     optimization: {
-        minimizer: [new TerserPlugin()]
-    }
+        minimizer: [new TerserPlugin()],
+    },
 };
 
 module.exports = config;
