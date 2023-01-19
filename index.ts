@@ -19,6 +19,15 @@ const jsonPointer = {
 	removeUndefinedItems,
 };
 export default jsonPointer;
-export { get, set, remove, join, split, isRoot, removeUndefinedItems };
+export {
+	get,
+	set,
+	remove,
+	join,
+	split,
+	splitLast,
+	isRoot,
+	removeUndefinedItems,
+};
 
 export type { JsonPointer, JsonPath, JsonData };
