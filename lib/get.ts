@@ -11,11 +11,9 @@ import { JsonPointer, JsonPath, JsonData } from "./types";
  * @param [defaultValue] - optional default value to return if json-pointer location does not exist
  * @return value at json-pointer, defaultValue if specified or undefined
  */
-export function get<T = any>(
-	data: JsonData,
-	pointer: JsonPointer | JsonPath,
-	defaultValue?: T
-): T | undefined {
+export function get<T>( data: JsonData, pointer: JsonPointer | JsonPath, defaultValue: T): T ;
+export function get<T>( data: JsonData, pointer: JsonPointer | JsonPath, defaultValue?: T): T | undefined ;
+export function get<T>( data: JsonData, pointer: JsonPointer | JsonPath, defaultValue = undefined): T | undefined  {
 	if (pointer == null || data == null) {
 		return defaultValue;
 	}
