@@ -1,36 +1,28 @@
-<h1 align="left"><img src="./docs/json-pointer.png" width="296" alt="@sagold/json-pointer"></h1>
+<h1 align="left"><img src="./docs/sagold-json-pointer.png" width="100%" alt="@sagold/json-pointer"></h1>
 
-This is a json-pointer implementation following [RFC 6901](https://tools.ietf.org/html/rfc6901).
-As the _error handling_ is not further specified, this implementation will return `undefined` for any invalid
-pointer/missing data, making it very convenient to check uncertain data, i.e.
-
-install
+<p align="center"><b>json-pointer implementation following <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> to work with serializable paths into javascript data structures.</b></p>
+<p align="center">
+    <a href="#api">api</a> | <a href="#usage-examples">usage examples</a> | <a href="#fragment-identifier">fragment identifier</a> | <a href="#breaking-changes">breaking changes</a>
+</p> 
 
 `yarn add @sagold/json-pointer`
 
 usage
 
 ```js
-import pointer from '@sagold/json-pointer';
+import { get, set, remove } from '@sagold/json-pointer';
 const data = {};
-if (pointer.get(data, '/path/to/nested/item') !== undefined) {
-    // value is set, do something
-}
 
-// instead of
-if (data.path && data.path.to && data.path.to.nested && data.path.to.nested.item) {
-    // value is set, do something
-}
+get(data, '/path/to/nested/item'); // undefined
+set(data, '/path/to/nested/item', 123); // { path: { to: { nested: { item: 123 }}}
+remove(data, '/path/to/nested/item'); // { path: { to: { nested: { }}}
 ```
 
 
-## Breaking Changes
-
-- 2022/12/02 with `v5`, package has been renamed to `json-pointer` and published under `@sagold/json-pointer`
-- 2020/11/09 with `v4`, `pointer.delete` has been renamed to `remove`
-
-
 ## API
+
+As the _error handling_ is not further specified, this implementation will return `undefined` for any invalid
+pointer/missing data, making it very convenient to work with uncertain data.
 
 | method                                    | description
 | ----------------------------------------- | -------------------------------------------------------------
@@ -255,3 +247,8 @@ const pointer = pointer.join('#/my pointer', 'to', 'property', isURI = false);
 console.log(pointer); // output: '/my pointer/to/property'
 ```
 
+
+## Breaking Changes
+
+- 2022/12/02 with `v5`, package has been renamed to `json-pointer` and published under `@sagold/json-pointer`
+- 2020/11/09 with `v4`, `pointer.delete` has been renamed to `remove`
