@@ -1,13 +1,16 @@
 <h1 align="left"><img src="./docs/sagold-json-pointer.png" width="100%" alt="@sagold/json-pointer"></h1>
 
-<p align="center"><b>json-pointer implementation following <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> to work with serializable paths into javascript data structures.</b></p>
+<p align="left"><b>json-pointer implementation following <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> to work with serializable paths into javascript data structures.</b></p>
+
 <p align="center">
     <a href="#api">api</a> | <a href="#usage-examples">usage examples</a> | <a href="#fragment-identifier">fragment identifier</a> | <a href="#breaking-changes">breaking changes</a>
 </p> 
 
+**install**
+
 `yarn add @sagold/json-pointer`
 
-usage
+**usage**
 
 ```js
 import { get, set, remove } from '@sagold/json-pointer';
