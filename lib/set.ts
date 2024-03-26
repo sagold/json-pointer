@@ -28,8 +28,7 @@ export function set<T = JsonData>(
 	}
 
 	if (data == null) {
-		// @ts-ignore
-		data = isArray.test(properties[0]) ? [] : {};
+		data = (isArray.test(properties[0]) ? [] : {}) as T;
 	}
 
 	let key,
