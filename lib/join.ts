@@ -1,7 +1,6 @@
 import { split } from "./split";
 import { JsonPointer, JsonPath } from "./types";
 
-const matchMutlipleSlashes = /\/+/g;
 const matchTildes = /~/g;
 const matchSlashes = /\//g;
 
@@ -19,15 +18,26 @@ function joinList(list: JsonPath, isURI: boolean) {
 		}
 	}
 
-	const pointer = (isURI ? "#/" : "/") + list.join("/");
-	return pointer.replace(matchMutlipleSlashes, "/");
+	return (isURI ? "#/" : "/") + list.join("/");
 }
 
 /**
- * Convert a list of JsonPointers, or a single JsonPath to a valid json-pointer
+ * Convert an array of properties (json-path) to a valid json-pointer.
+ * 
+ * If the last parameter is a boolean and set to true, a URIFragment is
+ * returned (leading `#/`)
  *
- * Supports as input:
- * 	- a json-path
+ * # examples
+ *
+ *	`join(["metadata", "title"])` // "metadata/title"
+ * 
+ *	`join(["metadata", "title"], true)` // "#/metadata/title"
+ */
+export function join(path: JsonPath, uriFragment?: boolean): JsonPointer;
+
+/**
+ * Convert a list of json-pointers to a valid json-pointer. Supports as input:
+ * 
  * 	- a list of json-pointers
  * 	- relative json-pointers
  *
@@ -36,17 +46,18 @@ function joinList(list: JsonPath, isURI: boolean) {
  *
  * # examples
  *
- *	`join(["metadata", "title"])` // "metadata/title"
- *	`join(["metadata", "title"], true)` // "#/metadata/title"
  *	`join("metadata", "title")` // "metadata/title"
+ * 
  *	`join("#/metadata", "title")` // "#/metadata/title"
+ * 
  *	`join("metadata", "title", true)` // "#/metadata/title"
+ * 
  *	`join("metadata", "../title")` // "title"
  */
-export function join(
-	firstPointer: JsonPointer | JsonPath,
-	...args
-): JsonPointer {
+export function join(...pointer: (JsonPointer | boolean)[]): JsonPointer;
+
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
+export function join(firstPointer, ...args: (JsonPointer | boolean)[]): JsonPointer {
 	const result = [];
 	if (Array.isArray(firstPointer)) {
 		return joinList(firstPointer, arguments[1] === true); // eslint-disable-line

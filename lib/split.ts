@@ -3,8 +3,7 @@ import { JsonPointer, JsonPath } from "./types";
 
 const matchSlashes = /~1/g;
 const matchTildes = /~0/g;
-const matchMutlipleSlashes = /\/+/g;
-const matchPointerPrefixes = /(^[#/]*|\/+$)/g;
+const matchPointerPrefixes = /(^#?\/?)/g;
 
 function sanitizeProperty(property: string): string {
 	return property.replace(matchSlashes, "/").replace(matchTildes, "~");
@@ -26,7 +25,6 @@ export function split(pointer: JsonPointer | JsonPath): JsonPath {
 		pointer.indexOf("#") >= 0
 			? sanitizeAndDecodeProperty
 			: sanitizeProperty;
-	pointer = pointer.replace(matchMutlipleSlashes, "/");
 	pointer = pointer.replace(matchPointerPrefixes, "");
 
 	const result = pointer.split("/");

@@ -4,14 +4,12 @@ import { join } from "../../lib/join";
 
 describe("pointer.join", () => {
     it("should return an empty string (root pointer)", () => {
-        // @ts-ignore
         const pointer = join();
 
         expect(pointer).to.eq("");
     });
 
     it("should return root pointer if the input is a boolean", () => {
-        // @ts-ignore
         const result = join(false);
 
         expect(result).to.eq("");
@@ -29,23 +27,56 @@ describe("pointer.join", () => {
         expect(pointer).to.eq("/parent/child/target");
     });
 
-    it("should ignore empty values", () => {
+    it("should join multiple root pointers to one", () => {
+        const pointer = join("#", "#");
+
+        expect(pointer).to.eq("#");
+    });
+
+    it("should join multiple root pointers correctly", () => {
+        const pointer = join("#/first", "#/third");
+
+        expect(pointer).to.eq("#/first/third");
+    });
+
+    it("should ignore null values", () => {
         const pointer = join("parent", null, "target");
 
         expect(pointer).to.eq("/parent/target");
     });
 
     it("should ignore non-strings values", () => {
+        // @ts-expect-error ignore input type
         const pointer = join("parent", {}, false, "target");
 
         expect(pointer).to.eq("/parent/target");
     });
 
-    it("should not have multiple slashes", () => {
-        const pointer = join("/", "", "first");
+    describe("empty property", () => {
+        it("should support empty properties", () => {
+            const pointer = join("/", "", "first");
 
-        expect(pointer).to.eq("/first");
-    });
+            expect(pointer).to.eq("//first");
+        });
+
+        it("should support empty properties in pointer", () => {
+            const pointer = join("/first", "second//third");
+
+            expect(pointer).to.eq("/first/second//third");
+        });
+
+        it("should correctly join trailing empty-property", () => {
+            const pointer = join("/a/", "/b");
+
+            expect(pointer).to.eq("/a//b");
+        });
+
+        it("should correctly join successive empty-properties", () => {
+            const pointer = join("/a/", "//b");
+
+            expect(pointer).to.eq("/a///b");
+        });
+    })
 
     it("should resolve relative pointers", () => {
         const pointer = join("/first/second/third", "../../2");
@@ -115,7 +146,6 @@ describe("pointer.join", () => {
         });
 
         it("should return uri root pointer if the input is a boolean with `true`", () => {
-            // @ts-ignore
             const result = join(true);
 
             expect(result).to.eq("#");

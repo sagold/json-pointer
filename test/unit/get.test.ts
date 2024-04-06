@@ -62,22 +62,47 @@ describe("pointer.get", () => {
         expect(result).to.eq(42);
     });
 
+    it("should also accept a list of properties as pointer", () => {
+        const result = get({ property: { value: "propertyValue" } }, [
+            "property",
+            "value",
+        ]);
+        expect(result).to.be.eq("propertyValue");
+    });
+
+    describe("empty tokens", () => {
+        it("should return empty root-property", () => {
+            const result = get({ "": 7 }, "/");
+            expect(result).to.be.eq(7);
+        });
+
+        it("should return empty object-property", () => {
+            const result = get({ header: { "": 7 } }, "/header/");
+            expect(result).to.be.eq(7);
+        });
+
+        it("should return property from empty-property", () => {
+            const result = get({ "": { header: 7 } }, "//header");
+            expect(result).to.be.eq(7);
+        });
+    });
+
     describe("rfc 6901", () => {
         let data;
         beforeEach(
             () =>
-                (data = {
-                    foo: ["bar", "baz"],
-                    "": 0,
-                    "a/b": 1,
-                    "c%d": 2,
-                    "e^f": 3,
-                    "g|h": 4,
-                    "i\\j": 5,
-                    'k"l': 6,
-                    " ": 7,
-                    "m~n": 8,
-                })
+            (data = {
+                foo: ["bar", "baz"],
+                "": 0,
+                "a/b": 1,
+                "c%d": 2,
+                "e^f": 3,
+                "g|h": 4,
+                "i\\j": 5,
+                'k"l': 6,
+                " ": 7,
+                "m~n": 8,
+            })
         );
 
         it("should return the document for an empty pointer", () => {
@@ -145,18 +170,18 @@ describe("pointer.get", () => {
         let data;
         beforeEach(
             () =>
-                (data = {
-                    foo: ["bar", "baz"],
-                    "": 0,
-                    "a/b": 1,
-                    "c%d": 2,
-                    "e^f": 3,
-                    "g|h": 4,
-                    "i\\j": 5,
-                    'k"l': 6,
-                    " ": 7,
-                    "m~n": 8,
-                })
+            (data = {
+                foo: ["bar", "baz"],
+                "": 0,
+                "a/b": 1,
+                "c%d": 2,
+                "e^f": 3,
+                "g|h": 4,
+                "i\\j": 5,
+                'k"l': 6,
+                " ": 7,
+                "m~n": 8,
+            })
         );
 
         it("should return the root document for '#'", () => {

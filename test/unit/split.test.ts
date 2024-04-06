@@ -5,7 +5,7 @@ import { split } from "../../lib/split";
 
 describe("pointer.split", () => {
     it("should return empty array for missing pointer", () => {
-        // @ts-ignore
+        // @ts-expect-error ignore input type
         const result = split();
 
         expect(result).to.be.an("array");
@@ -13,7 +13,7 @@ describe("pointer.split", () => {
     });
 
     it("should return empty array for invalid pointer", () => {
-        // @ts-ignore
+        // @ts-expect-error ignore input type
         const result = split({});
 
         expect(result).to.be.an("array");
@@ -62,11 +62,11 @@ describe("pointer.split", () => {
         expect(result).to.deep.eq(["my", "path"]);
     });
 
-    it("should ignore trailing slash", () => {
+    it("should not ignore trailing slash", () => {
         const result = split("/my/path/");
 
         expect(result).to.be.an("array");
-        expect(result).to.deep.eq(["my", "path"]);
+        expect(result).to.deep.eq(["my", "path", ""]);
     });
 
     it("should not ignore trailing whitespace", () => {
@@ -76,11 +76,11 @@ describe("pointer.split", () => {
         expect(result).to.deep.eq(["my", "path", " "]);
     });
 
-    it("should ignore empty properties", () => {
+    it("should not ignore empty properties", () => {
         const result = split("/my//path");
 
         expect(result).to.be.an("array");
-        expect(result).to.deep.eq(["my", "path"]);
+        expect(result).to.deep.eq(["my", "", "path"]);
     });
 
     describe("rfc 6901", () => {
