@@ -254,8 +254,8 @@ console.log(pointer); // output: '/my pointer/to/property'
 ## Breaking Changes
 
 - 2024/04/06 with `v6`, selection of empty properties is supported:
-    -  "/" now selects an empty property (previously root-pointer)
-    -  "a//b" is now a valid pointer to `"a" » "" » "b"`
-    - `join` no longer removes double slashes when joining `join("/a/", "/b")` » "/a//b"
+    -  `"/"` now selects an empty property (previously root-pointer)
+    -  `"a//b"` is now a valid pointer to `"a" » "" » "b"`
+    - `join` no longer removes double slashes when joining `join("/a/", "/b")` » `"/a//b"`
 - 2022/12/02 with `v5`, package has been renamed to `json-pointer` and published under `@sagold/json-pointer`
 - 2020/11/09 with `v4`, `pointer.delete` has been renamed to `remove`

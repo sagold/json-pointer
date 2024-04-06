@@ -65,16 +65,22 @@ describe("pointer.join", () => {
             expect(pointer).to.eq("/first/second//third");
         });
 
-        it("should correctly join trailing empty-property", () => {
+        it("should correctly join intermediate pointer havgin trailing empty property", () => {
             const pointer = join("/a/", "/b");
 
             expect(pointer).to.eq("/a//b");
         });
 
-        it("should correctly join successive empty-properties", () => {
+        it("should correctly join successive empty properties", () => {
             const pointer = join("/a/", "//b");
 
             expect(pointer).to.eq("/a///b");
+        });
+
+        it("should return with trailing empty property", () => {
+            const pointer = join("/a", "/b/");
+
+            expect(pointer).to.eq("/a/b/");
         });
     })
 
