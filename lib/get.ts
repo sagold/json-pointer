@@ -20,7 +20,6 @@ export function get<T = any>(data: JsonData, pointer: JsonPointer | JsonPath, de
 	if (isRoot(pointer)) {
 		return data;
 	}
-	console.log(pointer, "»", split(pointer));
 	const result = run(data, split(pointer));
 	if (result === undefined) {
 		return defaultValue;
