@@ -69,6 +69,13 @@ describe("pointer.set", () => {
         expect(result.array[1]).to.be.true;
     });
 
+    it("should append item to array", () => {
+        const result = set<{ array?: Array<any> }>({ array: ["first"] }, "/array/[]", "next");
+
+        expect(result.array).to.be.an("array");
+        expect(result.array).to.deep.equal(["first", "next"])
+    });
+
     it("should insert array in array", () => {
         const result = set<{ array?: Array<any> }>({}, "/array/[]/[]", true);
 
@@ -124,7 +131,6 @@ describe("pointer.set", () => {
                 "#/array/[1]/valid",
                 true
             );
-
             expect(result.array.length).to.eq(2);
             expect(result.array[1]).to.be.an("object");
             expect(result.array[1].valid).to.be.true;

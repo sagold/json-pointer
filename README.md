@@ -117,6 +117,29 @@ const data = pointer.set({}, ['list', '[]', 'value'], 42);
 console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
+#### array
+
+Per default `set` creates objects for each each missing data. Thus, a pointer to `/list/1` will create an object with `{ list: { 1: {} } }`. If you want to specify array-data you will need to wrap the array-index in array-brackets:
+
+```ts
+pointer.set({}, '/list/[1]', 42);
+// { list: [, 42] }
+```
+
+Omitting the index from the array-brackets will **append** the item:
+
+```ts
+pointer.set({}, '/list/[]', 42);
+// { list: [42] }
+```
+
+which also works for existing lists:
+
+```ts
+pointer.set({ list: ["first"] }, '/list/[]', 42);
+// { list: ["first", 42] }
+```
+
 
 ### remove
 
