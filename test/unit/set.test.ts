@@ -1,6 +1,7 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
 import { expect } from "chai";
+import { strict as assert } from "assert";
 import { set } from "../../lib/set";
 
 describe("pointer.set", () => {
@@ -13,13 +14,16 @@ describe("pointer.set", () => {
     });
 
     it("should create a new object for missing data and object pointer", () => {
-        const result = set(null, "/property", true);
+        const result = set<Record<string, any> | null>(null, "/property", true);
 
+        assert(result?.property);
         expect(result.property).to.be.true;
     });
 
     it("should create a new array for missing data and array property", () => {
         const result = set(null, "/[]", true);
+
+        assert(result);
         expect(result[0]).to.be.true;
     });
 
@@ -41,6 +45,8 @@ describe("pointer.set", () => {
             "/path/to/property",
             true
         );
+
+        assert(result?.path?.to);
         expect(result.path.to.property).to.be.true;
     });
 
@@ -50,60 +56,67 @@ describe("pointer.set", () => {
             "/path/to/property",
             true
         );
+
+        assert(result?.path?.to);
         expect(result.path.to.property).to.be.true;
         expect(result.path.to.id).to.eq("parent");
     });
 
     it("should insert array for []", () => {
-        const result = set<{ array?: Array<any> }>({}, "/array/[]", true);
+        const result = set<{ array?: any[] }>({}, "/array/[]", true);
 
+        assert(result?.array);
         expect(result.array).to.be.an("array");
         expect(result.array.length).to.eq(1);
     });
 
     it("should insert index in array", () => {
-        const result = set<{ array?: Array<any> }>({}, "/array/[1]", true);
+        const result = set<{ array?: any[] }>({}, "/array/[1]", true);
 
+        assert(result.array);
         expect(result.array).to.be.an("array");
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.true;
     });
 
     it("should append item to array", () => {
-        const result = set<{ array?: Array<any> }>({ array: ["first"] }, "/array/[]", "next");
+        const result = set<{ array: any[] }>({ array: ["first"] }, "/array/[]", "next");
 
         expect(result.array).to.be.an("array");
         expect(result.array).to.deep.equal(["first", "next"])
     });
 
     it("should insert array in array", () => {
-        const result = set<{ array?: Array<any> }>({}, "/array/[]/[]", true);
+        const result = set<{ array?: any[] }>({}, "/array/[]/[]", true);
 
+        assert(result.array);
         expect(result.array).to.be.an("array");
         expect(result.array[0][0]).to.be.true;
     });
 
     it("should insert array to index in array", () => {
-        const result = set<{ array?: Array<any> }>({}, "/array/[1]/[]", true);
+        const result = set<{ array?: any[] }>({}, "/array/[1]/[]", true);
 
+        assert(result.array);
         expect(result.array).to.be.an("array");
         expect(result.array[1][0]).to.be.true;
     });
 
     it("should insert object in array", () => {
-        const result = set<{ array?: Array<any> }>(
+        const result = set<{ array?: any[] }>(
             {},
             "/array/[1]/valid",
             true
         );
 
+        assert(result.array);
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.an("object");
         expect(result.array[1].valid).to.be.true;
     });
 
     it("should add property to object in array", () => {
-        const result = set<{ array?: Array<any> }>(
+        const result = set<{ array: any[] }>(
             { array: ["first", { id: 123 }] },
             "/array/[1]/valid",
             true
@@ -115,7 +128,7 @@ describe("pointer.set", () => {
     });
 
     it("should append object in array", () => {
-        const result = set<{ array?: Array<any> }>(
+        const result = set<{ array: any[] }>(
             { array: ["first", { id: 123 }] },
             "/array/[]/valid",
             true
@@ -128,12 +141,13 @@ describe("pointer.set", () => {
     });
 
     it("should accept a list of properties as pointer", () => {
-        const result = set<{ array?: Array<any> }>(
+        const result = set<{ array?: any[] }>(
             {},
             ["array", "[1]", "valid"],
             true
         );
 
+        assert(result.array);
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.an("object");
         expect(result.array[1].valid).to.be.true;
@@ -147,15 +161,18 @@ describe("pointer.set", () => {
                 true
             );
 
+            assert(result.path?.to);
             expect(result.path.to.property).to.be.true;
         });
 
         it("should insert object in array", () => {
-            const result = set<{ array?: Array<any> }>(
+            const result = set<{ array?: any[] }>(
                 {},
                 "#/array/[1]/valid",
                 true
             );
+
+            assert(result.array);
             expect(result.array.length).to.eq(2);
             expect(result.array[1]).to.be.an("object");
             expect(result.array[1].valid).to.be.true;
