@@ -61,8 +61,9 @@ function addValue(data, key, value) {
 }
 
 function create(data, key, isArray) {
-	if (data[key] != null) {
-		return data[key];
+	const property = key.match(arrayIndex)?.pop() ?? key;
+	if (data[property] != null) {
+		return data[property];
 	}
 	const value = isArray ? [] : {};
 	addValue(data, key, value);

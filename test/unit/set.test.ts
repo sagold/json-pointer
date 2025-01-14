@@ -102,6 +102,31 @@ describe("pointer.set", () => {
         expect(result.array[1].valid).to.be.true;
     });
 
+    it("should add property to object in array", () => {
+        const result = set<{ array?: Array<any> }>(
+            { array: ["first", { id: 123 }] },
+            "/array/[1]/valid",
+            true
+        );
+
+        expect(result.array.length).to.eq(2);
+        expect(result.array[0]).to.equal("first");
+        expect(result.array[1]).to.deep.equal({ id: 123, valid: true });
+    });
+
+    it("should append object in array", () => {
+        const result = set<{ array?: Array<any> }>(
+            { array: ["first", { id: 123 }] },
+            "/array/[]/valid",
+            true
+        );
+
+        expect(result.array.length).to.eq(3);
+        expect(result.array[0]).to.equal("first");
+        expect(result.array[1]).to.deep.equal({ id: 123 });
+        expect(result.array[2]).to.deep.equal({ valid: true });
+    });
+
     it("should accept a list of properties as pointer", () => {
         const result = set<{ array?: Array<any> }>(
             {},
