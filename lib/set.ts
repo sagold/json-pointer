@@ -2,7 +2,6 @@ import { split } from "./split";
 import { JsonPointer, JsonPath, JsonData } from "./types";
 
 const isArray = /^\[.*\]$/;
-const arrayIndex = /^\[(.+)\]$/;
 const findProperty = /^[[{](.+)[\]}]$/;
 
 function accessToPrototype(key: string, properties: string[]) {
