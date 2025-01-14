@@ -3,6 +3,7 @@ import { JsonPointer, JsonPath, JsonData } from "./types";
 
 const isArray = /^\[.*\]$/;
 const arrayIndex = /^\[(.+)\]$/;
+const findProperty = /^[[{](.+)[\]}]$/;
 
 function accessToPrototype(key: string, properties: string[]) {
 	return (
@@ -36,7 +37,7 @@ export function set<T = JsonData>(
 		current = data;
 	while (properties.length > 1) {
 		key = properties.shift();
-		nextKeyIsArray = isArray.test(properties[0]);
+		nextKeyIsArray = isArray.test(properties[0]) || `${parseInt(properties[0])}` === properties[0];
 		if (accessToPrototype(key, properties)) {
 			continue;
 		}
@@ -48,20 +49,16 @@ export function set<T = JsonData>(
 }
 
 function addValue(data, key, value) {
-	let index;
-	const keyAsIndex = key.match(arrayIndex);
+	const property = key.match(findProperty)?.pop() ?? key;
 	if (key === "[]" && Array.isArray(data)) {
 		data.push(value);
-	} else if (keyAsIndex) {
-		index = keyAsIndex.pop();
-		data[index] = value;
 	} else {
-		data[key] = value;
+		data[property] = value;
 	}
 }
 
 function create(data, key, isArray) {
-	const property = key.match(arrayIndex)?.pop() ?? key;
+	const property = key.match(findProperty)?.pop() ?? key;
 	if (data[property] != null) {
 		return data[property];
 	}

@@ -70,13 +70,30 @@ describe("pointer.set", () => {
         expect(result.array.length).to.eq(1);
     });
 
-    it("should insert index in array", () => {
+    it("should insert index in array using array-syntax", () => {
         const result = set<{ array?: any[] }>({}, "/array/[1]", true);
 
         assert(result.array);
         expect(result.array).to.be.an("array");
         expect(result.array.length).to.eq(2);
         expect(result.array[1]).to.be.true;
+    });
+
+    it("should insert index in array using number as string", () => {
+        const result = set<{ array?: any[] }>({}, "/array/1", true);
+
+        assert(result.array);
+        expect(result.array).to.be.an("array");
+        expect(result.array.length).to.eq(2);
+        expect(result.array[1]).to.be.true;
+    });
+
+    it("should insert object using object-syntax", () => {
+        const result = set<{ array?: any[] }>({}, "/array/{1}", true);
+
+        assert(result.array);
+        expect(result.array).to.be.an("object");
+        expect(result.array).to.deep.equal({ "1": true });
     });
 
     it("should append item to array", () => {
@@ -94,8 +111,16 @@ describe("pointer.set", () => {
         expect(result.array[0][0]).to.be.true;
     });
 
-    it("should insert array to index in array", () => {
+    it("should insert array to index in array using array-syntax", () => {
         const result = set<{ array?: any[] }>({}, "/array/[1]/[]", true);
+
+        assert(result.array);
+        expect(result.array).to.be.an("array");
+        expect(result.array[1][0]).to.be.true;
+    });
+
+    it("should insert array to index in array using number as string", () => {
+        const result = set<{ array?: any[] }>({}, "/array/1/[]", true);
 
         assert(result.array);
         expect(result.array).to.be.an("array");

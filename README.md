@@ -117,6 +117,45 @@ const data = pointer.set({}, ['list', '[]', 'value'], 42);
 console.log(data); // output: { list: [ { value: 42 } ] }
 ```
 
+#### behaviour using `set`
+
+`set` will create arrays when encountering a number
+
+```js
+pointer.set({}, ['list', '1', 'value'], 42);
+// { list: [undefined, { value: 42 }] }
+```
+
+alternatively you may use array-syntax `[index]`
+
+```js
+pointer.set({}, ['list', '[1]', 'value'], 42);
+// { list: [undefined, { value: 42 }] }
+```
+
+append items using empty array syntax `[]`
+
+```js
+pointer.set({ list: [1, 2] }, ['list', '[]', 'value'], 42);
+// { list: [1, 2, { value: 42 }] }
+```
+
+create object using object syntax `{index}`
+
+```js
+pointer.set({}, ['list', '{1}', 'value'], 42);
+// { list: { 1: { value: 42 } }
+```
+
+> ⚠️ `set` prefers existing data-type over specified data-types. For example: Setting an object for an existing array, will keep the object intact:
+>
+> ```js
+> pointer.set({ list: []}, ['list', '{0}', 'value'], 42);
+> // { list: [{ value: 42 }] }
+> ```
+
+
+
 #### array
 
 Per default `set` creates objects for each each missing data. Thus, a pointer to `/list/1` will create an object with `{ list: { 1: {} } }`. If you want to specify array-data you will need to wrap the array-index in array-brackets:
@@ -276,6 +315,9 @@ console.log(pointer); // output: '/my pointer/to/property'
 
 ## Breaking Changes
 
+- 2025/01/14 with `v7`
+    - `pointer.set` creates arrays using numbers as properties `/1` when the data is null or an array (previously created objects)
+    - `pointer.set` creates objects for numbers when using object-syntax `/{1}` (previously unsupported)
 - 2024/04/06 with `v6`, selection of empty properties is supported:
     -  `"/"` now selects an empty property (previously root-pointer)
     -  `"a//b"` is now a valid pointer to `"a" » "" » "b"`
