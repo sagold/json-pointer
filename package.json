@@ -1,6 +1,6 @@
 {
   "name": "@sagold/json-pointer",
-  "version": "6.0.2",
+  "version": "7.0.0",
   "description": "json pointer - failsafe data retrieval from js and json objects",
   "main": "dist/jsonPointer.js",
   "types": "dist/index.d.ts",
