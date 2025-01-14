@@ -119,7 +119,7 @@ console.log(data); // output: { list: [ { value: 42 } ] }
 
 #### behaviour using `set`
 
-`set` will create arrays when encountering a number
+`set` will **create arrays** when encountering a number
 
 ```js
 pointer.set({}, ['list', '1', 'value'], 42);
@@ -133,14 +133,14 @@ pointer.set({}, ['list', '[1]', 'value'], 42);
 // { list: [undefined, { value: 42 }] }
 ```
 
-append items using empty array syntax `[]`
+**append items** using empty array syntax `[]`
 
 ```js
 pointer.set({ list: [1, 2] }, ['list', '[]', 'value'], 42);
 // { list: [1, 2, { value: 42 }] }
 ```
 
-create object using object syntax `{index}`
+**create object** using object syntax `{index}`
 
 ```js
 pointer.set({}, ['list', '{1}', 'value'], 42);
@@ -153,31 +153,6 @@ pointer.set({}, ['list', '{1}', 'value'], 42);
 > pointer.set({ list: []}, ['list', '{0}', 'value'], 42);
 > // { list: [{ value: 42 }] }
 > ```
-
-
-
-#### array
-
-Per default `set` creates objects for each each missing data. Thus, a pointer to `/list/1` will create an object with `{ list: { 1: {} } }`. If you want to specify array-data you will need to wrap the array-index in array-brackets:
-
-```ts
-pointer.set({}, '/list/[1]', 42);
-// { list: [, 42] }
-```
-
-Omitting the index from the array-brackets will **append** the item:
-
-```ts
-pointer.set({}, '/list/[]', 42);
-// { list: [42] }
-```
-
-which also works for existing lists:
-
-```ts
-pointer.set({ list: ["first"] }, '/list/[]', 42);
-// { list: ["first", 42] }
-```
 
 
 ### remove
