@@ -7,4 +7,4 @@ import { JsonPointer, JsonPath } from "./types";
  * @param pointer - location of data to remove
  * @param [keepArrayIndices] - if set to `true`, will set array element to undefined (instead of removing it)
  */
-export declare function remove<T = any>(data: T, pointer: JsonPointer | JsonPath, keepArrayIndices?: boolean): T;
+export declare function remove<T = unknown>(data: T, pointer: JsonPointer | JsonPath, keepArrayIndices?: boolean): T;

@@ -1,21 +1,21 @@
 import "mocha";
-import { expect } from "chai";
+import { strict as assert } from "assert";
 import { isRoot } from "../../lib/isRoot";
 
 describe("isRoot", () => {
     it("should return true for a root pointer ''", () => {
-        expect(isRoot("")).to.eq(true);
+        assert.equal(isRoot(""), true);
     });
 
     it("should return true for a root pointer '#'", () => {
-        expect(isRoot("")).to.eq(true);
+        assert.equal(isRoot(""), true);
     });
 
     it("should return true for an empty json-path", () => {
-        expect(isRoot([])).to.eq(true);
+        assert.equal(isRoot([]), true);
     });
 
     it("should return false for non-empty json-path", () => {
-        expect(isRoot(["metadata"])).to.eq(false);
+        assert.equal(isRoot(["metadata"]), false);
     });
 });

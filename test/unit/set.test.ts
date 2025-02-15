@@ -1,8 +1,9 @@
 /* eslint no-unused-expressions: 0 */
 import "mocha";
-import { expect } from "chai";
 import { strict as assert } from "assert";
 import { set } from "../../lib/set";
+
+const isObject = (v: unknown): v is Record<string, unknown> => Object.prototype.toString.call(v) === "[object Object]"
 
 describe("pointer.set", () => {
     it("should return data for an invalid pointer", () => {
@@ -10,33 +11,33 @@ describe("pointer.set", () => {
         // @ts-ignore
         const result = set(data);
 
-        expect(result).to.eq(data);
+        assert.equal(result, data);
     });
 
     it("should create a new object for missing data and object pointer", () => {
         const result = set<Record<string, any> | null>(null, "/property", true);
 
         assert(result?.property);
-        expect(result.property).to.be.true;
+        assert.equal(result.property, true)
     });
 
     it("should create a new array for missing data and array property", () => {
         const result = set(null, "/[]", true);
 
         assert(result);
-        expect(result[0]).to.be.true;
+        assert.equal(result[0], true)
     });
 
     it("should ignore operation if pointer is root ", () => {
         const result = set({}, "#", true);
-        expect(result).to.deep.equal({});
+        assert.deepEqual(result, {});
     });
 
     it("should add value to the given property", () => {
         const result = set<{ property?: any }>({}, "/property", true);
 
-        expect(result).to.have.property("property");
-        expect(result.property).to.be.true;
+        assert("property" in result);
+        assert.equal(result.property, true)
     });
 
     it("should add value on the given path", () => {
@@ -47,7 +48,7 @@ describe("pointer.set", () => {
         );
 
         assert(result?.path?.to);
-        expect(result.path.to.property).to.be.true;
+        assert.equal(result.path.to.property, true)
     });
 
     it("should not remove any other properties", () => {
@@ -58,73 +59,73 @@ describe("pointer.set", () => {
         );
 
         assert(result?.path?.to);
-        expect(result.path.to.property).to.be.true;
-        expect(result.path.to.id).to.eq("parent");
+        assert.equal(result.path.to.property, true)
+        assert.equal(result.path.to.id, "parent");
     });
 
     it("should insert array for []", () => {
         const result = set<{ array?: any[] }>({}, "/array/[]", true);
 
         assert(result?.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array.length).to.eq(1);
+        assert(Array.isArray(result.array));
+        assert.equal(result.array.length, 1);
     });
 
     it("should insert index in array using array-syntax", () => {
         const result = set<{ array?: any[] }>({}, "/array/[1]", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array.length).to.eq(2);
-        expect(result.array[1]).to.be.true;
+        assert(Array.isArray(result.array));
+        assert.equal(result.array.length, 2);
+        assert.equal(result.array[1], true)
     });
 
     it("should insert index in array using number as string", () => {
         const result = set<{ array?: any[] }>({}, "/array/1", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array.length).to.eq(2);
-        expect(result.array[1]).to.be.true;
+        assert(Array.isArray(result.array));
+        assert.equal(result.array.length, 2);
+        assert.equal(result.array[1], true)
     });
 
     it("should insert object using object-syntax", () => {
         const result = set<{ array?: any[] }>({}, "/array/{1}", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("object");
-        expect(result.array).to.deep.equal({ "1": true });
+        assert(isObject(result.array));
+        assert.deepEqual(result.array, { "1": true });
     });
 
     it("should append item to array", () => {
         const result = set<{ array: any[] }>({ array: ["first"] }, "/array/[]", "next");
 
-        expect(result.array).to.be.an("array");
-        expect(result.array).to.deep.equal(["first", "next"])
+        assert(Array.isArray(result.array));
+        assert.deepEqual(result.array, ["first", "next"])
     });
 
     it("should insert array in array", () => {
         const result = set<{ array?: any[] }>({}, "/array/[]/[]", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array[0][0]).to.be.true;
+        assert(Array.isArray(result.array));
+        assert.equal(result.array[0][0], true)
     });
 
     it("should insert array to index in array using array-syntax", () => {
         const result = set<{ array?: any[] }>({}, "/array/[1]/[]", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array[1][0]).to.be.true;
+        assert(Array.isArray(result.array));
+        assert.equal(result.array[1][0], true)
     });
 
     it("should insert array to index in array using number as string", () => {
         const result = set<{ array?: any[] }>({}, "/array/1/[]", true);
 
         assert(result.array);
-        expect(result.array).to.be.an("array");
-        expect(result.array[1][0]).to.be.true;
+        assert(Array.isArray(result.array));
+        assert.equal(result.array[1][0], true)
     });
 
     it("should insert object in array", () => {
@@ -135,9 +136,9 @@ describe("pointer.set", () => {
         );
 
         assert(result.array);
-        expect(result.array.length).to.eq(2);
-        expect(result.array[1]).to.be.an("object");
-        expect(result.array[1].valid).to.be.true;
+        assert.equal(result.array.length, 2);
+        assert(isObject(result.array[1]));
+        assert.equal(result.array[1].valid, true)
     });
 
     it("should add property to object in array", () => {
@@ -147,9 +148,9 @@ describe("pointer.set", () => {
             true
         );
 
-        expect(result.array.length).to.eq(2);
-        expect(result.array[0]).to.equal("first");
-        expect(result.array[1]).to.deep.equal({ id: 123, valid: true });
+        assert.equal(result.array.length, 2);
+        assert.equal(result.array[0], "first");
+        assert.deepEqual(result.array[1], { id: 123, valid: true });
     });
 
     it("should append object in array", () => {
@@ -159,10 +160,10 @@ describe("pointer.set", () => {
             true
         );
 
-        expect(result.array.length).to.eq(3);
-        expect(result.array[0]).to.equal("first");
-        expect(result.array[1]).to.deep.equal({ id: 123 });
-        expect(result.array[2]).to.deep.equal({ valid: true });
+        assert.equal(result.array.length, 3)
+        assert.equal(result.array[0], "first")
+        assert.deepEqual(result.array[1], { id: 123 });
+        assert.deepEqual(result.array[2], { valid: true });
     });
 
     it("should accept a list of properties as pointer", () => {
@@ -173,9 +174,9 @@ describe("pointer.set", () => {
         );
 
         assert(result.array);
-        expect(result.array.length).to.eq(2);
-        expect(result.array[1]).to.be.an("object");
-        expect(result.array[1].valid).to.be.true;
+        assert.equal(result.array.length, 2)
+        assert(isObject(result.array[1]));
+        assert.equal(result.array[1].valid, true)
     });
 
     describe("# (uri fragment)", () => {
@@ -187,7 +188,7 @@ describe("pointer.set", () => {
             );
 
             assert(result.path?.to);
-            expect(result.path.to.property).to.be.true;
+            assert.equal(result.path.to.property, true)
         });
 
         it("should insert object in array", () => {
@@ -198,9 +199,9 @@ describe("pointer.set", () => {
             );
 
             assert(result.array);
-            expect(result.array.length).to.eq(2);
-            expect(result.array[1]).to.be.an("object");
-            expect(result.array[1].valid).to.be.true;
+            assert.equal(result.array.length, 2);
+            assert(isObject(result.array[1]));
+            assert.equal(result.array[1].valid, true)
         });
     });
 
@@ -208,13 +209,13 @@ describe("pointer.set", () => {
         it("should interpret '~1' as '/' in property", () => {
             const result = set({}, "/my~1value", true);
 
-            expect(result["my/value"]).to.eq(true);
+            assert.equal(result["my/value"], true);
         });
 
         it("should interpret '~0' as '~' in property", () => {
             const result = set({}, "/my~0value", true);
 
-            expect(result["my~value"]).to.eq(true);
+            assert.equal(result["my~value"], true);
         });
     });
 });

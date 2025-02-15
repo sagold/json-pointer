@@ -2,7 +2,7 @@
  * Removes all `undefined` values within an array without creating additional
  * arrays
  */
-export function removeUndefinedItems<T = any>(array: Array<T>): Array<T> {
+export function removeUndefinedItems<T = unknown>(array: T[]): T[] {
 	let i = 0;
 	let skip = 0;
 	while (i + skip < array.length) {

@@ -16,7 +16,7 @@ function accessToPrototype(key: string, properties: string[]) {
 export function set<T = JsonData>(
 	data: T,
 	pointer: JsonPointer | JsonPath,
-	value: any
+	value: unknown
 ): T {
 	if (pointer == null) {
 		return data;
