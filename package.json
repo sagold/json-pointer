@@ -39,7 +39,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-optimize-regex": "^1.2.1",
     "eslint-plugin-promise": "^7.2.1",
-    "mocha": "^10.4.0",
+    "mocha": "^11.1.0",
     "nyc": "^17.1.0",
     "terser-webpack-plugin": "^5.3.11",
     "ts-loader": "^9.5.2",
