@@ -51,7 +51,7 @@ function addValue(data, key, value) {
 	const property = key.match(findProperty)?.pop() ?? key;
 	if (key === "[]" && Array.isArray(data)) {
 		data.push(value);
-	} else {
+	} else if (!accessToPrototype(property, data)) {
 		data[property] = value;
 	}
 }
