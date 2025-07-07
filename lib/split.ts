@@ -19,7 +19,7 @@ function sanitizeAndDecodeProperty(property: string): string {
  */
 export function split(pointer: JsonPointer | JsonPath): JsonPath {
 	if (pointer == null || typeof pointer !== "string" || isRoot(pointer)) {
-		return Array.isArray(pointer) ? pointer : [];
+		return Array.isArray(pointer) ? pointer.slice() : [];
 	}
 	const sanitize =
 		pointer.indexOf("#") >= 0

@@ -179,6 +179,17 @@ describe("pointer.set", () => {
         assert.equal(result.array[1].valid, true)
     });
 
+    it("should not modify input path-array", () => {
+        const path = ["array", "[1]", "valid"];
+        const result = set<{ array?: any[] }>(
+            {},
+            path,
+            true
+        );
+
+        assert.deepEqual(path, ["array", "[1]", "valid"]);
+    });
+
     describe("# (uri fragment)", () => {
         it("should add value on the given path", () => {
             const result = set<{ path?: { to?: { property?: boolean } } }>(

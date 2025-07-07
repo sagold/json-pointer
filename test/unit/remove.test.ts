@@ -39,6 +39,13 @@ describe("remove", () => {
         assert(isObject(result.a.c));
     });
 
+    it("should not modify input path-array", () => {
+        const path = ["a", "b"];
+        const result = remove({ a: { b: {}, c: {} } }, path);
+
+        assert.deepEqual(path, ["a", "b"]);
+    });
+
     it("should ignore invalid paths", () => {
         const result = remove({ a: { b: {}, c: {} } }, "/a/d/c");
 

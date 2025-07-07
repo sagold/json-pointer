@@ -53,6 +53,14 @@ describe("pointer.get", () => {
         assert.equal(result, "propertyValue");
     });
 
+    it("should not modify input path-array", () => {
+        const path = ["property", "value"];
+        const result = get({ property: { value: "propertyValue" } }, path);
+        assert.equal(result, "propertyValue");
+
+        assert.deepEqual(path, ["property", "value"]);
+    });
+
     it("should return 'defaultValue' if property does not exist", () => {
         const result = get(
             { property: { value: "propertyValue" } },

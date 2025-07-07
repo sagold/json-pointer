@@ -41,6 +41,14 @@ describe("pointer.split", () => {
         assert.deepEqual(result, ["a", "b"]);
     });
 
+    it("should return copy of input array", () => {
+        const path = ["a", "b"];
+        const result = split(["a", "b"]);
+
+        assert.deepEqual(result, path);
+        assert.notEqual(result, path);
+    });
+
     it("should return path properties in array", () => {
         const result = split("/my/path");
 
