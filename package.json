@@ -23,6 +23,7 @@
   "scripts": {
     "dist": "rm -rf dist; tsdown -f esm -f cjs -f iife --minify; mv dist/index.iife.js dist/jsonPointer.js",
     "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha 'test/**/*.test.ts'",
+    "test:ci": "TS_NODE_PROJECT=./test/tsconfig.json DISABLE_LOG=true mocha -R json 'test/**/*.test.ts' > test-result-unit.json; exit 0",
     "prepublishOnly": "yarn test && yarn dist",
     "lint": "eslint lib && tsc",
     "coverage": "nyc yarn test"

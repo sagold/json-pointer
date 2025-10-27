@@ -1,3 +1,5 @@
+[![Npm package version](https://badgen.net/npm/v/@sagold/json-pointer)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) [![CI](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml/badge.svg)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) ![Types](https://badgen.net/npm/types/json-pointer)
+
 <h1 align="left"><img src="./docs/sagold-json-pointer.png" width="100%" alt="@sagold/json-pointer"></h1>
 
 <p align="left"><b>json-pointer implementation following <a href="https://tools.ietf.org/html/rfc6901">RFC 6901</a> to work with serializable paths into javascript data structures.</b></p>
@@ -290,6 +292,8 @@ console.log(pointer); // output: '/my pointer/to/property'
 
 ## Breaking Changes
 
+- 2025/10/27 `v7.2.0`
+    - changed exports to support esm
 - 2025/01/14 with `v7`
     - `pointer.set` creates arrays using numbers as properties `/1` when the data is null or an array (previously created objects)
     - `pointer.set` creates objects for numbers when using object-syntax `/{1}` (previously unsupported)

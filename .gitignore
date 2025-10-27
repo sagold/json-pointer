@@ -1,5 +1,6 @@
 *.sublime-project
 *.sublime-workspace
+test*.json
 .DS_STORE
 /.nyc_output
 dev
