@@ -2,8 +2,17 @@
   "name": "@sagold/json-pointer",
   "version": "7.1.2",
   "description": "json pointer - failsafe data retrieval from js and json objects",
-  "main": "dist/jsonPointer.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
+  "type": "module",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sagold/json-pointer.git"
@@ -12,10 +21,10 @@
     "test"
   ],
   "scripts": {
-    "dist": "rm -rf dist; NODE_ENV=production webpack",
-    "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha -r ts-node/register 'test/**/*.test.ts'",
+    "dist": "rm -rf dist; tsdown -f esm -f cjs -f iife --minify; mv dist/index.iife.js dist/jsonPointer.js",
+    "test": "TS_NODE_PROJECT=./test/tsconfig.json mocha 'test/**/*.test.ts'",
     "prepublishOnly": "yarn test && yarn dist",
-    "lint": "eslint lib",
+    "lint": "eslint lib && tsc",
     "coverage": "nyc yarn test"
   },
   "keywords": [
@@ -30,17 +39,14 @@
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.30.1",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^22.10.6",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.14",
     "eslint": "^9.30.1",
-    "mocha": "^11.1.0",
+    "mocha": "^11.7.4",
     "nyc": "^17.1.0",
-    "terser-webpack-plugin": "^5.3.11",
-    "ts-loader": "^9.5.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.35.1",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1"
+    "tsdown": "^0.15.10",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.35.1"
   }
 }

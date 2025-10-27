@@ -1,7 +1,7 @@
 import "mocha";
 import { strict as assert } from "assert";
 import gp, { get, set, remove, split, join, isRoot } from "../../index";
-import dist from "../../dist/jsonPointer";
+import dist from "../../dist/index.js";
 // import { get as getD, set as setD, remove as removeD } from "../../dist/gsonPointer.esm";
 
 describe("export", () => {
