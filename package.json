@@ -1,6 +1,6 @@
 {
   "name": "@sagold/json-pointer",
-  "version": "7.1.2",
+  "version": "7.2.0",
   "description": "json pointer - failsafe data retrieval from js and json objects",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.cts",
