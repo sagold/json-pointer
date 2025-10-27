@@ -1,4 +1,4 @@
-[![Npm package version](https://badgen.net/npm/v/@sagold/json-pointer)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) [![CI](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml/badge.svg)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) ![Types](https://badgen.net/npm/types/json-pointer)
+[![Npm package version](https://badgen.net/npm/v/@sagold/json-pointer)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) [![CI](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml/badge.svg)](https://github.com/sagold/json-pointer/actions/workflows/ci.yaml) ![Types](https://badgen.net/npm/types/@sagold/json-pointer)
 
 <h1 align="left"><img src="./docs/sagold-json-pointer.png" width="100%" alt="@sagold/json-pointer"></h1>
 
