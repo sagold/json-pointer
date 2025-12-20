@@ -32,7 +32,7 @@ function run<T = unknown>(data: JsonData, path: JsonPath): T | undefined {
 	if (data === undefined) {
 		return;
 	} else if (property !== undefined) {
-		return run(data[property], path);
+		return data == null ? undefined : run(data[property], path);
 	}
 	return data as T;
 }

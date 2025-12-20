@@ -40,6 +40,14 @@ describe("pointer.get", () => {
         assert.equal(result, undefined);
     });
 
+    it("should return 'undefined' if pointer passes null-value", () => {
+        const result = get(
+            { property: null },
+            "/property/invalid/value"
+        );
+        assert.equal(result, undefined);
+    });
+
     it("should resolve arrays", () => {
         const result = get(["0", { value: "propertyValue" }], "/1/value");
         assert.equal(result, "propertyValue");
