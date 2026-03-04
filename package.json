@@ -8,8 +8,8 @@
   "module": "./dist/index.mjs",
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.mjs"
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -41,13 +41,19 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.3.3",
     "eslint": "^9.39.2",
     "mocha": "^11.7.5",
     "nyc": "^17.1.0",
-    "tsdown": "^0.18.1",
+    "tsdown": "^0.20.3",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.5.0"
+    "typescript-eslint": "^8.56.1"
+  },
+  "resolutions": {
+    "ajv": ">=6.14.0",
+    "diff": ">=8.0.3",
+    "minimatch": ">=9.0.7",
+    "serialize-javascript": ">=7.0.3"
   }
 }
